@@ -3,9 +3,8 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
-import ftc.teamcode.Constants.AutoTimeBasedConstants;
 
-@Autonomous (name=AutoName, group=group)
+@Autonomous (name="Team4008AutoEncoderBased", group="4008")
 public class Team4008AutoTimeBased extends LinearOpMode {
 
     Team4008HM2025 robot = new Team4008HM2025();

@@ -69,10 +69,44 @@ public class Team4008TeleOp2025 extends LinearOpMode {
         }
     }
 
-    // class specific method that aren't in constants file go here
-    public void exampleMethod (double power){
-
-        robot.DriveLeftFront.setPower(power); robot.DriveRightFront.setPower(-power);
-        robot.DriveLeftBack.setPower(-power);   robot.DriveRightBack.setPower(power);
+    public void moveLeft(double power) {
+        robot.DriveLeftFront.setPower(power);
+        robot.DriveRightFront.setPower(-power);
+        robot.DriveLeftBack.setPower(-power);
+        robot.DriveRightBack.setPower(power);
     }
+    //
+    public void moveRight(double power) {
+        // Left Wheels                         //Right Wheels
+        robot.DriveLeftFront.setPower(-power);
+        robot.DriveRightFront.setPower(power);
+        robot.DriveLeftBack.setPower(power);
+        robot.DriveRightBack.setPower(-power);
+    }
+
+    public void moveForward(double power) {
+        // Left Wheels                         //Right Wheels
+        robot.DriveLeftFront.setPower(power);
+        robot.DriveRightFront.setPower(power);
+        robot.DriveLeftBack.setPower(power);
+        robot.DriveRightBack.setPower(power);
+    }
+
+    public void moveBackward(double power) {
+        // Left Wheels                         //Right Wheels
+        robot.DriveLeftFront.setPower(-power);
+        robot.DriveRightFront.setPower(-power);
+        robot.DriveLeftBack.setPower(-power);
+        robot.DriveRightBack.setPower(-power);
+    }
+
+    public void stopDriveTrainMotors() {
+        // Left Wheels                         //Right Wheels
+        robot.DriveLeftFront.setPower(0);
+        robot.DriveRightFront.setPower(0);
+        robot.DriveRightBack.setPower(0);
+        robot.DriveLeftBack.setPower(0);
+
+    }
+
 }

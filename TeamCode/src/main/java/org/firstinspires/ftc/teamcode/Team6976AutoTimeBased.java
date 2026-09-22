@@ -4,7 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-@Autonomous (name="Team4008AutoTimeBased", group="4008")
+@Autonomous (name="Team6976AutoTimeBased", group="6976")
 public class Team6976AutoTimeBased extends LinearOpMode {
 
     Team6976HM2027 robot = new Team6976HM2027();

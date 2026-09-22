@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-@Autonomous (name="Team4008AutoEncoderBased", group="4008")
+@Autonomous (name="Team6976AutoEncoderBased", group="6976")
 public class Team4008AutoEncoderBased extends LinearOpMode {
 
     Team6976HM2027 robot = new Team6976HM2027();

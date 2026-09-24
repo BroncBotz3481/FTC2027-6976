@@ -9,6 +9,8 @@ public class Team6976HM2027 {
     public DcMotor DriveLeftFront = null;
     public DcMotor DriveRightFront = null;
 
+    public DcMotor ShooterMotor = null;
+
     public double num = 0;
 
 
@@ -23,6 +25,7 @@ public class Team6976HM2027 {
         DriveRightFront = hwMap.get(DcMotor.class,"DriveRightFront");
         DriveLeftBack = hwMap.get(DcMotor.class,"DriveLeftBack");
         DriveRightBack = hwMap.get(DcMotor.class,"DriveRightBack");
+        ShooterMotor = hwMap.get(DcMotor.class,"ShooterMotor");
         //   Lights = hwMap.get(RevBlinkinLedDriver.class,"Lights");
 
         DriveLeftFront.setDirection(DcMotor.Direction.FORWARD);
@@ -33,6 +36,7 @@ public class Team6976HM2027 {
          recieved then the motor power is set to 1.0 even if you put a different
          value */
         DriveLeftFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
 
         DriveRightFront.setDirection(DcMotor.Direction.REVERSE);
         DriveRightFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -48,6 +52,11 @@ public class Team6976HM2027 {
         DriveRightBack.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         DriveRightBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         DriveRightBack.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+        ShooterMotor.setDirection(DcMotor.Direction.REVERSE);
+        ShooterMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        ShooterMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        ShooterMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
     }
 }

@@ -67,7 +67,10 @@ public class Team6976TeleOp2027 extends LinearOpMode {
             } else if (gamepad1.dpad_right){
                 moveRight(mag);
             }
+            if (gamepad1.x) {
+                robot.ShooterMotor.setPower(1.0);
 
+            }
         }
     }
 

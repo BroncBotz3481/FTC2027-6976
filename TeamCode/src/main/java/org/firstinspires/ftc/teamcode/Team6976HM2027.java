@@ -1,14 +1,24 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.Servo;
 
 public class Team6976HM2027 {
     public DcMotor DriveRightBack = null;
     public DcMotor DriveLeftBack = null;
     public DcMotor DriveLeftFront = null;
     public DcMotor DriveRightFront = null;
-    public DcMotor Shooter = null;
+    public DcMotor ShooterLeft = null;
+    public DcMotor ShooterRight = null;
+    public DcMotor IntakeMotor = null;
+    public DcMotor Transfer = null;
+    public CRServo IntakeLeft = null;
+    public CRServo IntakeRight = null;
+
+    public Servo ShooterGate = null;
 
     public double num = 0;
 
@@ -24,7 +34,13 @@ public class Team6976HM2027 {
         DriveRightFront = hwMap.get(DcMotor.class,"DriveRightFront");
         DriveLeftBack = hwMap.get(DcMotor.class,"DriveLeftBack");
         DriveRightBack = hwMap.get(DcMotor.class,"DriveRightBack");
-        Shooter = hwMap.get(DcMotor.class,"Shooter");
+        ShooterLeft = hwMap.get(DcMotor.class,"ShooterLeft");
+        ShooterRight = hwMap.get(DcMotor.class,"ShooterRight");
+        IntakeMotor = hwMap.get(DcMotor.class,"Intake");
+        Transfer = hwMap.get(DcMotor.class,"Transfer");
+        IntakeLeft = hwMap.get(CRServo.class,"IntakeLeftServo");
+        IntakeRight = hwMap.get(CRServo.class,"IntakeRightServo");
+        ShooterGate = hwMap.get(Servo.class,"ShooterGateServo");
         //   Lights = hwMap.get(RevBlinkinLedDriver.class,"Lights");
 
         DriveLeftFront.setDirection(DcMotor.Direction.FORWARD);
@@ -32,7 +48,7 @@ public class Team6976HM2027 {
         DriveLeftFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         /* If you are using encoders, set to RUN_USING_ENCODER.
          If you put RUN_USING_ENCODERS and there is no encoder value getting
-         recieved then the motor power is set to 1.0 even if you put a different
+         received then the motor power is set to 1.0 even if you put a different
          value */
         DriveLeftFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
@@ -51,10 +67,31 @@ public class Team6976HM2027 {
         DriveRightBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         DriveRightBack.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
-        Shooter.setDirection(DcMotor.Direction.REVERSE);
-        Shooter.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        Shooter.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        Shooter.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        ShooterLeft.setDirection(DcMotor.Direction.REVERSE);
+        ShooterLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        ShooterLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        ShooterLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+        ShooterRight.setDirection(DcMotor.Direction.FORWARD);
+        ShooterRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        ShooterRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        ShooterRight.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+        IntakeMotor.setDirection(DcMotor.Direction.FORWARD);
+        IntakeMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        IntakeMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        IntakeMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+        Transfer.setDirection(DcMotor.Direction.FORWARD);
+        Transfer.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        Transfer.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        Transfer.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+        IntakeLeft.setDirection(CRServo.Direction.FORWARD);
+
+        IntakeRight.setDirection(DcMotorSimple.Direction.REVERSE);
+
+
 
     }
 }

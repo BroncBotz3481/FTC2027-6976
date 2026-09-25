@@ -68,6 +68,18 @@ public class Team6976TeleOp2027 extends LinearOpMode {
                 moveRight(mag);
             }
 
+            if (gamepad2.right_trigger >= 0.5){
+                robot.ShooterLeft.setPower(0.5);
+                robot.ShooterRight.setPower(-0.5);
+                robot.Transfer.setPower(0.5);
+                robot.ShooterGate.setPosition(1);
+            }
+
+            if (gamepad2.left_trigger >= 0.5){
+                robot.IntakeLeft.setPower(1);
+                robot.IntakeRight.setPower(-1);
+            }
+
         }
     }
 

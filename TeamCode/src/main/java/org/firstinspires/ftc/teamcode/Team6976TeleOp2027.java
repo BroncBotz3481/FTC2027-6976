@@ -72,7 +72,7 @@ public class Team6976TeleOp2027 extends LinearOpMode {
 
             if (gamepad2.right_trigger >= 0.5f){ //They return floats
                 robot.ShooterLeft.setPower(0.5);
-                robot.ShooterRight.setPower(-0.5); //These shooter motors will spin in the same direction because you set one of them to reverse in the HW
+                robot.ShooterRight.setPower(0.5); //These shooter motors will spin in the same direction because you set one of them to reverse in the HW
                 robot.Transfer.setPower(0.5);
                 robot.ShooterGate.setPosition(1);
             }
@@ -81,10 +81,17 @@ public class Team6976TeleOp2027 extends LinearOpMode {
 
             if (gamepad2.left_trigger >= 0.5f){
                 robot.IntakeLeft.setPower(1); //Intakes will spin in the same direction because one is reversed in HW
-                robot.IntakeRight.setPower(-1);
+                robot.IntakeRight.setPower(1);
+                robot.IntakeMotor.setPower(0.5);
+                robot.Transfer.setPower(0.5);
                 //Intake motor + transfer will also be spinning
             }
             //set servo powers to 0
+            robot.ShooterLeft.setPower(0);
+            robot.ShooterRight.setPower(0);
+            robot.Transfer.setPower(0);
+            robot.ShooterGate.setPosition(0);
+            robot.IntakeLeft.setPower(0);
 
             //Optional Challenge, make seperate methods for intaking() and shooting()
         }
@@ -135,6 +142,21 @@ public class Team6976TeleOp2027 extends LinearOpMode {
         robot.DriveRightFront.setPower(0);
         robot.DriveRightBack.setPower(0);
         robot.DriveLeftBack.setPower(0);
+    }
+
+
+    public void shooting(double power) {
+        robot.ShooterLeft.setPower(0.5);
+        robot.ShooterRight.setPower(0.5);
+        robot.Transfer.setPower(0.5);
+        robot.ShooterGate.setPosition(1);
+    }
+
+    public void intaking(double power) {
+        robot.IntakeLeft.setPower(1);
+        robot.IntakeRight.setPower(1);
+        robot.IntakeMotor.setPower(0.5);
+        robot.Transfer.setPower(0.5);
     }
 }
 

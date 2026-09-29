@@ -24,6 +24,8 @@ public class Team6976TeleOp2027 extends LinearOpMode {
         robot.DriveLeftFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         robot.DriveLeftFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
+        //servos here. Ex: robot.gate.setPosition(0); When robot starts, the gate will be set to close
+
         waitForStart();
 
         while (opModeIsActive()) {
@@ -68,18 +70,23 @@ public class Team6976TeleOp2027 extends LinearOpMode {
                 moveRight(mag);
             }
 
-            if (gamepad2.right_trigger >= 0.5){
+            if (gamepad2.right_trigger >= 0.5f){ //They return floats
                 robot.ShooterLeft.setPower(0.5);
-                robot.ShooterRight.setPower(-0.5);
+                robot.ShooterRight.setPower(-0.5); //These shooter motors will spin in the same direction because you set one of them to reverse in the HW
                 robot.Transfer.setPower(0.5);
                 robot.ShooterGate.setPosition(1);
             }
+            //Set motor powers to 0, rn the motors will run forever and ever cuz you never told it to go back to 0 power
+            //close the gate
 
-            if (gamepad2.left_trigger >= 0.5){
-                robot.IntakeLeft.setPower(1);
+            if (gamepad2.left_trigger >= 0.5f){
+                robot.IntakeLeft.setPower(1); //Intakes will spin in the same direction because one is reversed in HW
                 robot.IntakeRight.setPower(-1);
+                //Intake motor + transfer will also be spinning
             }
+            //set servo powers to 0
 
+            //Optional Challenge, make seperate methods for intaking() and shooting()
         }
     }
 

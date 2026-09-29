@@ -11,6 +11,8 @@ public class Team6976HM2027 {
     public DcMotor DriveLeftBack = null;
     public DcMotor DriveLeftFront = null;
     public DcMotor DriveRightFront = null;
+
+    //mild nitpick but camel casing for the rest of the robot is preferred. Optional
     public DcMotor ShooterLeft = null;
     public DcMotor ShooterRight = null;
     public DcMotor IntakeMotor = null;

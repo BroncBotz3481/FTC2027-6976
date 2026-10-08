@@ -10,8 +10,8 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 public class Team6976TeleOp2027 extends LinearOpMode {
     Team6976HMap2027 robot = new Team6976HMap2027();
 
-    //shooting speed, raidans per second probably
-    private TunableNumber target1 = new TunableNumber(this, "target1", 90);
+    //shooting speed, raidans per second
+    private TunableNumber target1 = new TunableNumber(this, "target1", 250);
     private TunableNumber target2 = new TunableNumber(this, "target2", 0);
 
     @Override

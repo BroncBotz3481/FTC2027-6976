@@ -25,13 +25,12 @@ public class SyntaxLesson extends LinearOpMode {
         while (opModeIsActive()) {
 
             //Data Types
-            int eger = 1;
+            int num = 1;
             double orNothing = 0.462;
             float point = gamepad1.left_trigger;
             float name = 3.14f;
             boolean trueFalse = true;
             String words = "Isabella is super cool and awesome";
-
             //Like creating a variable, you can create motors, servos, sensors, and more
             Servo claw = null;
 
@@ -46,7 +45,7 @@ public class SyntaxLesson extends LinearOpMode {
             System.out.println(num1 + num2); //Outputs 9.0
             System.out.println(num1 - num2); //Outputs -3.0
             System.out.println(num1 * num2); //Outputs 18.0
-            System.out.println(num1 / num2); //Outputs 0.5
+            System.out.println((num1+2) / num2); //Outputs 0.5
 
             double x = 2/3; // this would store x as 0 because
 
@@ -69,7 +68,7 @@ public class SyntaxLesson extends LinearOpMode {
                 What would these output?
 
                 double myDouble = 5.0;
-                System.out.println(myDouble + 3 * 2);
+                System.out.println(5.0 + 3 * 2);
 
                 a) 5.0      b) 16.0     c) 11.0     d) 11
 
@@ -93,11 +92,12 @@ public class SyntaxLesson extends LinearOpMode {
                 //number--; does the same thing
             }
 
+
             //Short Hand If Statement
             boolean speedslow = gamepad1.right_bumper;
              //                 What         T     F
             double motorSpeed = speedslow ? 0.5 : 1.0;
-
+            num = 2;
 
             //Loops
             for (int i = 0; i < 5; i++){
@@ -108,6 +108,9 @@ public class SyntaxLesson extends LinearOpMode {
             while (gamepad2.b){
                 isPressed = true;
             }
+            System.out.print("a");
+            System.out.println("b");
+            System.out.println("c");
 
             //show methods in the autos
         }

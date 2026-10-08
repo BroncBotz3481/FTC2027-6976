@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 public class Team6976HM2027 {
@@ -9,23 +10,28 @@ public class Team6976HM2027 {
     public DcMotor DriveLeftFront = null;
     public DcMotor DriveRightFront = null;
 
-    public DcMotor ShooterMotor = null;
+    public DcMotor ShooterMotorLeft = null;
+    public DcMotor ShooterMotorRight = null;
+
+    public DcMotor IntakeShooterMotorRight = null;
+
+    public DcMotor Intake = null;
+
+    public DcMotor Transfer = null;
 
     public double num = 0;
 
 
-
-
     HardwareMap hwMap = null;
-    public void Map(HardwareMap hardwareMap)
-    {
+
+    public void Map(HardwareMap hardwareMap) {
         hwMap = hardwareMap;
         num = 67;
-        DriveLeftFront = hwMap.get(DcMotor.class,"DriveLeftFront");
-        DriveRightFront = hwMap.get(DcMotor.class,"DriveRightFront");
-        DriveLeftBack = hwMap.get(DcMotor.class,"DriveLeftBack");
-        DriveRightBack = hwMap.get(DcMotor.class,"DriveRightBack");
-        ShooterMotor = hwMap.get(DcMotor.class,"ShooterMotor");
+        DriveLeftFront = hwMap.get(DcMotor.class, "DriveLeftFront");
+        DriveRightFront = hwMap.get(DcMotor.class, "DriveRightFront");
+        DriveLeftBack = hwMap.get(DcMotor.class, "DriveLeftBack");
+        DriveRightBack = hwMap.get(DcMotor.class, "DriveRightBack");
+        ShooterMotorLeft = hwMap.get(DcMotor.class, "ShooterMotorLeft");
         //   Lights = hwMap.get(RevBlinkinLedDriver.class,"Lights");
 
         DriveLeftFront.setDirection(DcMotor.Direction.FORWARD);
@@ -53,10 +59,21 @@ public class Team6976HM2027 {
         DriveRightBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         DriveRightBack.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
-        ShooterMotor.setDirection(DcMotor.Direction.REVERSE);
-        ShooterMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        ShooterMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        ShooterMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        ShooterMotorLeft.setDirection(DcMotor.Direction.FORWARD);
+        ShooterMotorLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        ShooterMotorLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        ShooterMotorLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+        ShooterMotorRight.setDirection(DcMotor.Direction.FORWARD);
+        ShooterMotorRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        ShooterMotorRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        ShooterMotorRight.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+        Intake.setDirection(DcMotor.Direction.FORWARD);
+        Intake.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        Intake.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        Intake.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
     }
+
 }

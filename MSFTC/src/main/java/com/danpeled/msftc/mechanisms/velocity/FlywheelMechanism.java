@@ -7,6 +7,7 @@ import com.arcrobotics.ftclib.controller.wpilibcontroller.SimpleMotorFeedforward
 
 import com.danpeled.msftc.Alert;
 import com.danpeled.msftc.Motor;
+import com.danpeled.msftc.VelocityUnit;
 import com.danpeled.msftc.dashboard.DashboardUtils;
 import com.danpeled.msftc.dashboard.TunableNumber;
 import com.danpeled.msftc.mechanisms.Mechanism;
@@ -89,7 +90,7 @@ public class FlywheelMechanism extends Mechanism {
         if (!m_setpoint.isPresent()) return;
 
         double actualSetpoint = MathUtils.clamp(m_setpoint.orElse(lowerLimit.getValueAsDouble()), lowerLimit.getValueAsDouble(), upperLimit.getValueAsDouble());
-        double currentVelocity = getVelocity();
+        double currentVelocity = getVelocity(VelocityUnit.RPM);
 
         double feedback = m_pid.calculate();
         double u = feedback + m_ff.calculate(actualSetpoint);
@@ -108,8 +109,8 @@ public class FlywheelMechanism extends Mechanism {
     }
 
 
-    public double getVelocity() {
-        return m_leadMotor.getVelocity();
+    public double getVelocity(VelocityUnit unit) {
+        return m_leadMotor.getVelocity(unit);
     }
 
     public void initConfig() {

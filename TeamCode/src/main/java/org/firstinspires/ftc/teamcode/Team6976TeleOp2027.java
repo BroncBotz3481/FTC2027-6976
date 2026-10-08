@@ -93,6 +93,11 @@ public class Team6976TeleOp2027 extends LinearOpMode {
             robot.ShooterGate.setPosition(0);
             robot.IntakeLeft.setPower(0);
 
+            if (gamepad1.a) {
+                robot.shooter.setSetpoint(target1.getValueAsDouble());
+            }
+            robot.shooter.setSetpoint(target2.getValueAsDouble());
+
             //Optional Challenge, make seperate methods for intaking() and shooting()
         }
     }

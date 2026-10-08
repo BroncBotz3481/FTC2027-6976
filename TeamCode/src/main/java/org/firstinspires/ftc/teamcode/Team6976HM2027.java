@@ -1,6 +1,11 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.arcrobotics.ftclib.controller.PIDController;
+import com.arcrobotics.ftclib.controller.wpilibcontroller.SimpleMotorFeedforward;
+import com.danpeled.msftc.GearBox;
 import com.danpeled.msftc.Motor;
+import com.danpeled.msftc.MotorType;
+import com.danpeled.msftc.mechanisms.velocity.FlywheelMechanism;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
@@ -37,6 +42,35 @@ public class Team6976HM2027 {
     public void Map(HardwareMap hardwareMap)
     {
         hwMap = hardwareMap;
+
+        intake = hwMap.get(CRServo.class, "Intake");
+
+        flywheelMotor1 = new Motor("flywheelMotor2")
+                .ofType(MotorType.GOBILDA_6000)
+                .withZeroPowerBehaviour(DcMotor.ZeroPowerBehavior.BRAKE)
+                .withGearBox(GearBox.fromOutputRPM(6000, 60))
+                .withHardCurrentLimit(20)
+                .withSoftCurrentLimit(10)
+                .withCurrentLimitEnabled()
+                .enableEncoder()
+                .withDirection(DcMotorSimple.Direction.FORWARD);
+
+        flywheelMotor1 = new Motor("flywheelMotor1")
+                .ofType(MotorType.GOBILDA_6000)
+                .withZeroPowerBehaviour(DcMotor.ZeroPowerBehavior.BRAKE)
+                .withGearBox(GearBox.fromOutputRPM(6000, 60))
+                .withHardCurrentLimit(20)
+                .withSoftCurrentLimit(10)
+                .withCurrentLimitEnabled()
+                .enableEncoder()
+                .withFollowers(flywheelMotor2)
+                .withDirection(DcMotorSimple.Direction.FORWARD);
+
+        shooter = new FlywheelMechanism("flywheel", flywheelMotor1)
+                .withLimits(0, 100)
+                .withPID(new PIDController(0.1, 0, 0))
+                .withFeedforward(new SimpleMotorFeedforward(0, 0, 0));
+
         num = 67;
         DriveLeftFront = hwMap.get(DcMotor.class,"DriveLeftFront");
         DriveRightFront = hwMap.get(DcMotor.class,"DriveRightFront");

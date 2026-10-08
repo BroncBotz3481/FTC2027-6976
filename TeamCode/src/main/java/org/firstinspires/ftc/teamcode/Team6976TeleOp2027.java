@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.danpeled.msftc.dashboard.TunableNumber;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -7,6 +8,9 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 @TeleOp(name = "Team6976TeleOp2027", group = "6976")
 public class Team6976TeleOp2027 extends LinearOpMode {
     Team6976HM2027 robot = new Team6976HM2027();
+
+    private TunableNumber target1 = new TunableNumber(this, "target1", 250);
+    private TunableNumber target2 = new TunableNumber(this, "target2", 0);
 
 
     @Override

@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.danpeled.msftc.GlobalTelemetry;
+import com.danpeled.msftc.dashboard.TunableNumber;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -9,12 +11,22 @@ public class Team6976TeleOp2027 extends LinearOpMode {
     Team6976HM2027 robot = new Team6976HM2027();
     public boolean intakeToggle = false;
 
+    private TunableNumber target1 = new TunableNumber(this, "target1", 250);
+    private TunableNumber target2 = new TunableNumber(this, "target2", 0);
+
 
     @Override
     public void runOpMode() {
         robot.Map(hardwareMap);
         telemetry.addData("Say", "TeleOp Starting");
         telemetry.update();
+
+        GlobalTelemetry.init(telemetry);
+
+        robot.flywheelMotor1.queryMotor(hardwareMap);
+        robot.flywheelMotor2.queryMotor(hardwareMap);
+
+        robot.shooter.initConfig();
 
         robot.DriveRightFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         robot.DriveRightFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -68,6 +80,11 @@ public class Team6976TeleOp2027 extends LinearOpMode {
             } else if (gamepad1.dpad_right){
                 moveRight(mag);
             }
+
+            if (gamepad1.a) {
+                robot.shooter.setSetpoint(target1.getValueAsDouble());
+            }
+            robot.shooter.setSetpoint(target2.getValueAsDouble());
 
             if (gamepad2.right_trigger >= 0.5) {
                 robot.shooterLeft.setPower(0.5);

@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.danpeled.msftc.Motor;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
@@ -7,6 +8,11 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
 public class Team6976HM2027 {
+
+    public CRServo intake = null;
+    public Motor flywheelMotor1 = null;
+    public Motor flywheelMotor2 = null;
+
     public DcMotor DriveRightBack = null;
     public DcMotor DriveLeftBack = null;
     public DcMotor DriveLeftFront = null;

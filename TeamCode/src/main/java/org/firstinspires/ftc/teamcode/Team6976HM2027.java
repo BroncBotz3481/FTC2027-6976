@@ -15,6 +15,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 public class Team6976HM2027 {
 
     public CRServo intake = null;
+    public FlywheelMechanism shooter = null;
     public Motor flywheelMotor1 = null;
     public Motor flywheelMotor2 = null;
 

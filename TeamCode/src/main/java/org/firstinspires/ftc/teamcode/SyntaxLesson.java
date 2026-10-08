@@ -39,7 +39,7 @@ public class SyntaxLesson extends LinearOpMode {
             // = assigns a value
             orNothing = 0.3481;
 
-            //You can do Math with varables!!
+            //You can do Math with variables!!
             double num1 = 3.0;
             double num2 = 6.0;
 

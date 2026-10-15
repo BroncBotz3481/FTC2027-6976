@@ -46,7 +46,7 @@ public class Team6976HM2027 {
 
         intake = hwMap.get(CRServo.class, "Intake");
 
-        flywheelMotor1 = new Motor("flywheelMotor2")
+        flywheelMotor2 = new Motor("flywheelMotor2")
                 .ofType(MotorType.GOBILDA_6000)
                 .withZeroPowerBehaviour(DcMotor.ZeroPowerBehavior.BRAKE)
                 .withGearBox(GearBox.fromOutputRPM(6000, 60))

@@ -27,6 +27,7 @@ public class Team6976HM2027 {
     //mild nitpick but camel casing for the rest of the robot is preferred. Optional
     public DcMotor ShooterLeft = null;
     public DcMotor ShooterRight = null;
+    public CRServo Turret = null;
     public DcMotor IntakeMotor = null;
     public DcMotor Transfer = null;
     public CRServo IntakeLeft = null;

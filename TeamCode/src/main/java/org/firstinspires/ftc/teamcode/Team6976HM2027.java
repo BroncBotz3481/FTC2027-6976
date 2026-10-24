@@ -6,10 +6,12 @@ import com.danpeled.msftc.GearBox;
 import com.danpeled.msftc.Motor;
 import com.danpeled.msftc.MotorType;
 import com.danpeled.msftc.mechanisms.velocity.FlywheelMechanism;
+import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.IMU;
 import com.qualcomm.robotcore.hardware.Servo;
 
 public class Team6976HM2027 {
@@ -37,13 +39,22 @@ public class Team6976HM2027 {
 
     public double num = 0;
 
-
+    public IMU imu = null;
 
 
     HardwareMap hwMap = null;
     public void Map(HardwareMap hardwareMap)
     {
         hwMap = hardwareMap;
+
+        // Retrieve the IMU from the hardware map
+        imu = hardwareMap.get(IMU.class, "imu");
+        // Adjust the orientation parameters to match your robot
+        IMU.Parameters parameters = new IMU.Parameters(new RevHubOrientationOnRobot(
+                RevHubOrientationOnRobot.LogoFacingDirection.RIGHT,
+                RevHubOrientationOnRobot.UsbFacingDirection.UP));
+        // Without this, the REV Hub's orientation is assumed to be logo up / USB forward
+        imu.initialize(parameters);
 
         intake = hwMap.get(CRServo.class, "Intake");
 

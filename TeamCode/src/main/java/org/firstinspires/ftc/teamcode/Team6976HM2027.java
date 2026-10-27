@@ -45,7 +45,7 @@ public class Team6976HM2027 {
         intake = hwMap.get(CRServo.class, "Intake");
         num = 67;
 
-        flywheelMotor1 = new Motor("flywheelMotor2")
+        flywheelMotor1 = new Motor("flywheelMotor1")
                 .ofType(MotorType.GOBILDA_6000)
                 .withZeroPowerBehaviour(DcMotor.ZeroPowerBehavior.BRAKE)
                 .withGearBox(GearBox.fromOutputRPM(6000, 60))
@@ -55,7 +55,7 @@ public class Team6976HM2027 {
                 .enableEncoder()
                 .withDirection(DcMotorSimple.Direction.FORWARD);
 
-        flywheelMotor1 = new Motor("flywheelMotor1")
+        flywheelMotor2 = new Motor("flywheelMotor2")
                 .ofType(MotorType.GOBILDA_6000)
                 .withZeroPowerBehaviour(DcMotor.ZeroPowerBehavior.BRAKE)
                 .withGearBox(GearBox.fromOutputRPM(6000, 60))

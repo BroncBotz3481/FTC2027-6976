@@ -17,6 +17,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 public class Team6976HM2027 {
 
     public CRServo intake = null;
+    public Servo TurretServo = null;
     public FlywheelMechanism shooter = null;
     public Motor flywheelMotor1 = null;
     public Motor flywheelMotor2 = null;
@@ -28,7 +29,8 @@ public class Team6976HM2027 {
 
     public CRServo Turret = null;
     public DcMotor IntakeMotor = null;
-    public DcMotor Transfer = null;
+    public CRServo TransferLeft = null;
+    public CRServo TransferRight = null;
     public CRServo IntakeLeft = null;
     public CRServo IntakeRight = null;
 
@@ -88,10 +90,12 @@ public class Team6976HM2027 {
         DriveRightBack = hwMap.get(DcMotor.class,"DriveRightBack");
 
         IntakeMotor = hwMap.get(DcMotor.class,"Intake");
-        Transfer = hwMap.get(DcMotor.class,"Transfer");
+        TransferLeft = hwMap.get(CRServo.class,"TransferLeft");
+        TransferRight = hwMap.get(CRServo.class, "TransferRIght");
         IntakeLeft = hwMap.get(CRServo.class,"IntakeLeftServo");
         IntakeRight = hwMap.get(CRServo.class,"IntakeRightServo");
         kicker = hwMap.get(Servo.class,"kicker");
+        TurretServo = hwMap.get(Servo.class, "TurretServo");
         //   Lights = hwMap.get(RevBlinkinLedDriver.class,"Lights");
 
         DriveLeftFront.setDirection(DcMotor.Direction.FORWARD);
@@ -123,10 +127,9 @@ public class Team6976HM2027 {
         IntakeMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         IntakeMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
-        Transfer.setDirection(DcMotor.Direction.FORWARD);
-        Transfer.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        Transfer.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        Transfer.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        TransferLeft.setDirection(CRServo.Direction.FORWARD);
+        TransferRight.setDirection(CRServo.Direction.REVERSE);
+
 
         IntakeLeft.setDirection(CRServo.Direction.FORWARD);
 

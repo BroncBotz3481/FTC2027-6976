@@ -280,8 +280,16 @@ public class Motor {
         return m_internalMotor;
     }
 
-    public double getVelocity() { // ticks per second, need to check how that works
-        return m_internalMotor.getVelocity();
+    public double getVelocity(VelocityUnit unit) {
+        double factor = 1.0f;
+
+        if (unit == VelocityUnit.RPM) {
+            factor = 1 / m_ticksPerRevolution;
+        } else if (unit == VelocityUnit.RPS) {
+            factor = 1 / (m_ticksPerRevolution / 60);
+        }
+
+        return m_internalMotor.getVelocity() * factor;
     }
 
     public void setZeroPowerBehaviour(DcMotor.ZeroPowerBehavior behaviour) {

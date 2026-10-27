@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.danpeled.msftc.GlobalTelemetry;
+import com.danpeled.msftc.VelocityUnit;
 import com.danpeled.msftc.dashboard.TunableNumber;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;

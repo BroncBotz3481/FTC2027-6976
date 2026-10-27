@@ -1,8 +1,10 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.IMU;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.arcrobotics.ftclib.controller.PIDController;
 import com.arcrobotics.ftclib.controller.wpilibcontroller.SimpleMotorFeedforward;
@@ -30,8 +32,12 @@ public class Team6976HM2027 {
 
     public CRServo intakeLeft = null;
     public CRServo intakeRight = null;
+    public CRServo Turret = null;
 
     public Servo shooterGate = null;
+    public Servo kicker = null;
+
+    public IMU imu = null;
 
     public double num = 0;
 
@@ -42,6 +48,16 @@ public class Team6976HM2027 {
     public void Map(HardwareMap hardwareMap)
     {
         hwMap = hardwareMap;
+
+        // Retrieve the IMU from the hardware map
+        imu = hardwareMap.get(IMU.class, "imu");
+        // Adjust the orientation parameters to match your robot
+        IMU.Parameters parameters = new IMU.Parameters(new RevHubOrientationOnRobot(
+                RevHubOrientationOnRobot.LogoFacingDirection.RIGHT,
+                RevHubOrientationOnRobot.UsbFacingDirection.UP));
+        // Without this, the REV Hub's orientation is assumed to be logo up / USB forward
+        imu.initialize(parameters);
+
         intake = hwMap.get(CRServo.class, "Intake");
         num = 67;
 
@@ -64,7 +80,7 @@ public class Team6976HM2027 {
                 .withCurrentLimitEnabled()
                 .enableEncoder()
                 .withFollowers(flywheelMotor2)
-                .withDirection(DcMotorSimple.Direction.FORWARD);
+                .withDirection(DcMotorSimple.Direction.REVERSE);
 
         shooter = new FlywheelMechanism("flywheel", flywheelMotor1)
                 .withLimits(0, 100)
@@ -75,6 +91,8 @@ public class Team6976HM2027 {
         shooterRight = hwMap.get(DcMotor.class,"shooterRight");
         intakeMotor = hwMap.get(DcMotor.class, "intakeMotor");
         transferMotor = hwMap.get(DcMotor.class, "transferMotor");
+        kicker = hwMap.get(Servo.class,"kicker");
+        //   Lights = hwMap.get(RevBlinkinLedDriver.class,"Lights");
 
         DriveLeftFront = hwMap.get(DcMotor.class,"DriveLeftFront");
         DriveRightFront = hwMap.get(DcMotor.class,"DriveRightFront");

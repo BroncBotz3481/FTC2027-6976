@@ -26,16 +26,13 @@ public class Team6976HM2027 {
     public DcMotor DriveLeftFront = null;
     public DcMotor DriveRightFront = null;
 
-    //mild nitpick but camel casing for the rest of the robot is preferred. Optional
-    public DcMotor ShooterLeft = null;
-    public DcMotor ShooterRight = null;
     public CRServo Turret = null;
     public DcMotor IntakeMotor = null;
     public DcMotor Transfer = null;
     public CRServo IntakeLeft = null;
     public CRServo IntakeRight = null;
 
-    public Servo ShooterGate = null;
+    public Servo kicker = null;
 
     public double num = 0;
 
@@ -77,7 +74,7 @@ public class Team6976HM2027 {
                 .withCurrentLimitEnabled()
                 .enableEncoder()
                 .withFollowers(flywheelMotor2)
-                .withDirection(DcMotorSimple.Direction.FORWARD);
+                .withDirection(DcMotorSimple.Direction.REVERSE);
 
         shooter = new FlywheelMechanism("flywheel", flywheelMotor1)
                 .withLimits(0, 100)
@@ -89,13 +86,12 @@ public class Team6976HM2027 {
         DriveRightFront = hwMap.get(DcMotor.class,"DriveRightFront");
         DriveLeftBack = hwMap.get(DcMotor.class,"DriveLeftBack");
         DriveRightBack = hwMap.get(DcMotor.class,"DriveRightBack");
-        ShooterLeft = hwMap.get(DcMotor.class,"ShooterLeft");
-        ShooterRight = hwMap.get(DcMotor.class,"ShooterRight");
+
         IntakeMotor = hwMap.get(DcMotor.class,"Intake");
         Transfer = hwMap.get(DcMotor.class,"Transfer");
         IntakeLeft = hwMap.get(CRServo.class,"IntakeLeftServo");
         IntakeRight = hwMap.get(CRServo.class,"IntakeRightServo");
-        ShooterGate = hwMap.get(Servo.class,"ShooterGateServo");
+        kicker = hwMap.get(Servo.class,"kicker");
         //   Lights = hwMap.get(RevBlinkinLedDriver.class,"Lights");
 
         DriveLeftFront.setDirection(DcMotor.Direction.FORWARD);
@@ -121,16 +117,6 @@ public class Team6976HM2027 {
         DriveRightBack.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         DriveRightBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         DriveRightBack.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-
-        ShooterLeft.setDirection(DcMotor.Direction.REVERSE);
-        ShooterLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        ShooterLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        ShooterLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-
-        ShooterRight.setDirection(DcMotor.Direction.FORWARD);
-        ShooterRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        ShooterRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        ShooterRight.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         IntakeMotor.setDirection(DcMotor.Direction.FORWARD);
         IntakeMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);

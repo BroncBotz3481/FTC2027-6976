@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.danpeled.msftc.VelocityUnit;
 import com.danpeled.msftc.dashboard.TunableNumber;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -15,8 +16,14 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 public class Team6976TeleOp2027 extends LinearOpMode {
     Team6976HM2027 robot = new Team6976HM2027();
 
-    private TunableNumber target1 = new TunableNumber(this, "target1", 250);
-    private TunableNumber target2 = new TunableNumber(this, "target2", 0);
+    //ticks per second, max 6000 RPM motor is 2,800 TPS.
+    private TunableNumber speedHigh = new TunableNumber(this, "speedHigh", 2000);
+    private TunableNumber speedMid = new TunableNumber(this, "speedMid", 1400);
+    private TunableNumber speedLow = new TunableNumber(this, "speedLow", 600);
+    private TunableNumber zeroPower = new TunableNumber(this, "zeroPower", 0);
+
+    private TunableNumber[] speed = {speedLow, speedMid, speedHigh};
+    int index = 1;
 
 
     @Override
@@ -43,10 +50,12 @@ public class Team6976TeleOp2027 extends LinearOpMode {
 
         while (opModeIsActive()) {
 
+            boolean speedslow = gamepad1.right_bumper;
+            double mag = speedslow ? 0.5 : 1.0;
+
             double y = -gamepad1.left_stick_y; // Remember, Y stick value is reversed
             double x = gamepad1.left_stick_x;
             double rx = gamepad1.right_stick_x;
-
 
             // This button choice was made so that it is hard to hit on accident,
             // it can be freely changed based on preference.
@@ -63,32 +72,27 @@ public class Team6976TeleOp2027 extends LinearOpMode {
 
             rotX = rotX * 1.1;  // Counteract imperfect strafing
 
+            // Denominator is the largest motor power (absolute value) or 1
+            // This ensures all the powers maintain the same ratio,
+            // but only if at least one is out of the range [-1, 1]
+            double denominator = Math.max(Math.abs(rotY) + Math.abs(rotX) + Math.abs(rx), 1);
+            double frontLeftPower = (rotY + rotX + rx) / denominator;
+            double backLeftPower = (rotY - rotX + rx) / denominator;
+            double frontRightPower = (rotY - rotX - rx) / denominator;
+            double backRightPower = (rotY + rotX - rx) / denominator;
 
-            boolean speedslow = gamepad1.right_bumper;
-            double mag = speedslow ? 0.5 : 1.0;
-
-
-            // Optional Deadzones
-//            double y = (Math.abs(gamepad1.left_stick_y) > 0.1 ? gamepad1.left_stick_y : 0); // Remember, this is reversed!
-//            double x = -(Math.abs(gamepad1.left_stick_x) > 0.1 ? gamepad1.left_stick_x : 0) * 1.1; // Counteract imperfect strafing
-//            double rx = -gamepad1.right_stick_x;
-
-
-            double denominator = Math.max(Math.abs(y) + Math.abs(x) + Math.abs(rx), 1.5);
-            double frontLeftPower = (y + x + rx) / denominator;
-            double backLeftPower = (y - x + rx) / denominator;
-            double frontRightPower = (y - x - rx) / denominator;
-            double backRightPower = (y + x - rx) / denominator;
-
-            robot.DriveLeftFront.setPower(frontLeftPower * mag);
-            robot.DriveLeftBack.setPower(backLeftPower * mag);
-            robot.DriveRightFront.setPower(frontRightPower * mag);
-            robot.DriveRightBack.setPower(backRightPower * mag);
+            robot.DriveLeftFront.setPower(frontLeftPower);
+            robot.DriveLeftBack.setPower(backLeftPower);
+            robot.DriveRightFront.setPower(frontRightPower);
+            robot.DriveRightBack.setPower(backRightPower);
 
             telemetry.addData("RightFront", robot.DriveRightFront.getCurrentPosition());
             telemetry.addData("RightBack", robot.DriveRightBack.getCurrentPosition());
             telemetry.addData("LeftFront", robot.DriveLeftFront.getCurrentPosition());
             telemetry.addData("LeftBack", robot.DriveLeftBack.getCurrentPosition());
+
+            telemetry.addData("ShooterSpeed", robot.shooter.getVelocity(VelocityUnit.TicksPerSecond));
+            telemetry.addData("ShooterSetpoint", speed[index].getValueAsDouble());
             telemetry.update();
 
             if (gamepad1.dpad_up){
@@ -101,11 +105,16 @@ public class Team6976TeleOp2027 extends LinearOpMode {
                 moveRight(mag);
             }
 
-            if (gamepad2.right_trigger >= 0.5f){ //They return floats
-                robot.ShooterLeft.setPower(0.5);
-                robot.ShooterRight.setPower(0.5); //These shooter motors will spin in the same direction because you set one of them to reverse in the HW
-                robot.Transfer.setPower(0.5);
-                robot.ShooterGate.setPosition(1);
+            if(gamepad2.x){
+                index = 0;
+            } else if (gamepad2.y){
+                index = 1;
+            } else if (gamepad2.b){
+                index = 2;
+            }
+
+            if (gamepad2.right_trigger >= 0.5f){
+                shooting(speed[index]);
             }
             //Set motor powers to 0, rn the motors will run forever and ever cuz you never told it to go back to 0 power
             //close the gate
@@ -118,16 +127,11 @@ public class Team6976TeleOp2027 extends LinearOpMode {
                 //Intake motor + transfer will also be spinning
             }
             //set servo powers to 0
-            robot.ShooterLeft.setPower(0);
-            robot.ShooterRight.setPower(0);
             robot.Transfer.setPower(0);
-            robot.ShooterGate.setPosition(0);
+            robot.kicker.setPosition(0);
             robot.IntakeLeft.setPower(0);
 
-            if (gamepad1.a) {
-                robot.shooter.setSetpoint(target1.getValueAsDouble());
-            }
-            robot.shooter.setSetpoint(target2.getValueAsDouble());
+            robot.shooter.setSetpoint(0);
 
             //Optional Challenge, make seperate methods for intaking() and shooting()
         }
@@ -181,11 +185,23 @@ public class Team6976TeleOp2027 extends LinearOpMode {
     }
 
 
-    public void shooting(double power) {
-        robot.ShooterLeft.setPower(0.5);
-        robot.ShooterRight.setPower(0.5);
-        robot.Transfer.setPower(0.5);
-        robot.ShooterGate.setPosition(1);
+    public void shooting(TunableNumber radPerSecond) {
+
+        robot.shooter.setSetpoint(radPerSecond.getValueAsDouble());
+
+        if(Math.abs(robot.shooter.getVelocity(VelocityUnit.TicksPerSecond) - radPerSecond.getValueAsDouble()) == 300){
+            robot.Transfer.setPower(1);
+            robot.intake.setPower(1);
+            kick();
+        }
+        
+    }
+    
+    public void kick(){
+        robot.kicker.setPosition(1);
+        if(Math.abs(robot.kicker.getPosition() - 1) == .1){
+            robot.kicker.setPosition(0);
+        }
     }
 
     public void intaking(double power) {

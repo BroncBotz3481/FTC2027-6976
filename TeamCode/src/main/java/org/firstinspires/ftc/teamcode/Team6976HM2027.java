@@ -32,7 +32,7 @@ public class Team6976HM2027 {
 
     public CRServo intakeLeft = null;
     public CRServo intakeRight = null;
-    public CRServo Turret = null;
+    public Servo turretServo = null;
 
     public Servo shooterGate = null;
     public Servo kicker = null;

@@ -31,6 +31,7 @@ public class Team6976HM2027 {
     public DcMotor IntakeMotor = null;
     public CRServo TransferLeft = null;
     public CRServo TransferRight = null;
+    public DcMotor TransferMotor = null;
     public CRServo IntakeLeft = null;
     public CRServo IntakeRight = null;
 
@@ -90,6 +91,7 @@ public class Team6976HM2027 {
         DriveRightBack = hwMap.get(DcMotor.class,"DriveRightBack");
 
         IntakeMotor = hwMap.get(DcMotor.class,"Intake");
+        TransferMotor = hwMap.get(DcMotor.class, "Transfer");
         TransferLeft = hwMap.get(CRServo.class,"TransferLeft");
         TransferRight = hwMap.get(CRServo.class, "TransferRIght");
         IntakeLeft = hwMap.get(CRServo.class,"IntakeLeftServo");
@@ -126,6 +128,11 @@ public class Team6976HM2027 {
         IntakeMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         IntakeMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         IntakeMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+        TransferMotor.setDirection(DcMotor.Direction.FORWARD);
+        TransferMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        TransferMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        TransferMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         TransferLeft.setDirection(CRServo.Direction.FORWARD);
         TransferRight.setDirection(CRServo.Direction.REVERSE);

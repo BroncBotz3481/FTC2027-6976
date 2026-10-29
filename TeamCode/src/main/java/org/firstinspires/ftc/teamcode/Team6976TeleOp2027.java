@@ -123,11 +123,14 @@ public class Team6976TeleOp2027 extends LinearOpMode {
                 robot.IntakeLeft.setPower(1); //Intakes will spin in the same direction because one is reversed in HW
                 robot.IntakeRight.setPower(1);
                 robot.IntakeMotor.setPower(0.5);
-                robot.Transfer.setPower(0.5);
+                robot.TransferRight.setPower(0.5);
+                robot.TransferLeft.setPower(0.5);
+                robot.TransferMotor.setPower(0.5);
                 //Intake motor + transfer will also be spinning
             }
             //set servo powers to 0
-            robot.Transfer.setPower(0);
+            robot.TransferRight.setPower(0);
+            robot.TransferLeft.setPower(0);
             robot.kicker.setPosition(0);
             robot.IntakeLeft.setPower(0);
 
@@ -190,7 +193,9 @@ public class Team6976TeleOp2027 extends LinearOpMode {
         robot.shooter.setSetpoint(radPerSecond.getValueAsDouble());
 
         if(Math.abs(robot.shooter.getVelocity(VelocityUnit.TicksPerSecond) - radPerSecond.getValueAsDouble()) == 300){
-            robot.Transfer.setPower(1);
+            robot.TransferRight.setPower(1);
+            robot.TransferLeft.setPower(1);
+            robot.TransferMotor.setPower(1);
             robot.intake.setPower(1);
             kick();
         }
@@ -208,7 +213,9 @@ public class Team6976TeleOp2027 extends LinearOpMode {
         robot.IntakeLeft.setPower(1);
         robot.IntakeRight.setPower(1);
         robot.IntakeMotor.setPower(0.5);
-        robot.Transfer.setPower(0.5);
+        robot.TransferRight.setPower(0.5);
+        robot.TransferLeft.setPower(0.5);
+        robot.TransferMotor.setPower(0.5);
     }
 }
 

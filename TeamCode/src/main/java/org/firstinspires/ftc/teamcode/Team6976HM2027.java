@@ -94,8 +94,7 @@ public class Team6976HM2027 {
         TransferMotor = hwMap.get(DcMotor.class, "Transfer");
         TransferLeft = hwMap.get(CRServo.class,"TransferLeft");
         TransferRight = hwMap.get(CRServo.class, "TransferRIght");
-        IntakeLeft = hwMap.get(CRServo.class,"IntakeLeftServo");
-        IntakeRight = hwMap.get(CRServo.class,"IntakeRightServo");
+
         kicker = hwMap.get(Servo.class,"kicker");
         TurretServo = hwMap.get(Servo.class, "TurretServo");
         //   Lights = hwMap.get(RevBlinkinLedDriver.class,"Lights");

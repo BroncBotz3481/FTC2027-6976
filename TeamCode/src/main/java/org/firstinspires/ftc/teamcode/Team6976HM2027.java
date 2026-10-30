@@ -16,7 +16,6 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 public class Team6976HM2027 {
 
-    public CRServo intake = null;
     public Servo TurretServo = null;
     public FlywheelMechanism shooter = null;
     public Motor flywheelMotor1 = null;
@@ -56,7 +55,6 @@ public class Team6976HM2027 {
         // Without this, the REV Hub's orientation is assumed to be logo up / USB forward
         imu.initialize(parameters);
 
-        intake = hwMap.get(CRServo.class, "Intake");
 
         flywheelMotor2 = new Motor("FrontFlywheel")
                 .ofType(MotorType.GOBILDA_6000)

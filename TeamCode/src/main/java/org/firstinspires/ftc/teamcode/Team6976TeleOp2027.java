@@ -37,12 +37,12 @@ public class Team6976TeleOp2027 extends LinearOpMode {
         telemetry.addData("Say", "TeleOp Starting");
         telemetry.update();
 
-//        GlobalTelemetry.init(telemetry);
+        GlobalTelemetry.init(telemetry);
 
-//        robot.flywheelMotor1.queryMotor(hardwareMap);
-//        robot.flywheelMotor2.queryMotor(hardwareMap);
+        robot.flywheelMotor1.queryMotor(hardwareMap);
+        robot.flywheelMotor2.queryMotor(hardwareMap);
 
-//        robot.shooter.initConfig();
+        robot.shooter.initConfig();
 
 
 
@@ -133,7 +133,8 @@ public class Team6976TeleOp2027 extends LinearOpMode {
             telemetry.addData("LeftFront", robot.DriveLeftFront.getCurrentPosition());
             telemetry.addData("LeftBack", robot.DriveLeftBack.getCurrentPosition());
 
-            telemetry.addData("ShooterSpeed", robot.frontShooter.getVelocity());
+            //telemetry.addData("ShooterSpeed", robot.frontShooter.getVelocity());
+            telemetry.addData("ShooterSpeed", robot.shooter.getVelocity(VelocityUnit.TicksPerSecond));
             telemetry.addData("ShooterSetpoint", speed[index]);
             telemetry.update();
 
@@ -176,7 +177,6 @@ public class Team6976TeleOp2027 extends LinearOpMode {
             //close the gate
 
             if (gamepad2.left_trigger >= 0.5f){
-
                 intaking(1);
             }
 
@@ -239,10 +239,11 @@ public class Team6976TeleOp2027 extends LinearOpMode {
 
 
     public void shooting(double TPS) {
-       robot.backShooter.setVelocity(TPS);
-       robot.frontShooter.setVelocity(TPS);
+//        robot.backShooter.setVelocity(TPS);
+//        robot.frontShooter.setVelocity(TPS);
+        robot.shooter.setSetpoint(TPS);
 
-        if(Math.abs(robot.frontShooter.getVelocity()- TPS) < 300){
+        if(Math.abs(robot.shooter.getVelocity(VelocityUnit.TicksPerSecond)- TPS) < 300){
             robot.TransferRight.setPower(1);
             robot.TransferLeft.setPower(1);
             robot.TransferMotor.setPower(1);

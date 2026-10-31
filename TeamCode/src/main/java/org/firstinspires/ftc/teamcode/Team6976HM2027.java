@@ -65,7 +65,6 @@ public class Team6976HM2027 {
                 .withCurrentLimitEnabled()
                 .enableEncoder()
                 .withDirection(DcMotorSimple.Direction.FORWARD);
-
         flywheelMotor1 = new Motor("BackFlywheel")
                 .ofType(MotorType.GOBILDA_6000)
                 .withZeroPowerBehaviour(DcMotor.ZeroPowerBehavior.BRAKE)
@@ -78,7 +77,7 @@ public class Team6976HM2027 {
                 .withDirection(DcMotorSimple.Direction.REVERSE);
 
         shooter = new FlywheelMechanism("flywheel", flywheelMotor1)
-                .withLimits(0, 100)
+                .withLimits(0, 6000)
                 .withPID(new PIDController(0.1, 0, 0))
                 .withFeedforward(new SimpleMotorFeedforward(0, 0, 0));
 

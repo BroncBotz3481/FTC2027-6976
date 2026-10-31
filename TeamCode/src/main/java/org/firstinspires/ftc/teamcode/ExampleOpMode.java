@@ -2,14 +2,12 @@ package org.firstinspires.ftc.teamcode;
 
 import com.arcrobotics.ftclib.controller.PIDController;
 import com.arcrobotics.ftclib.controller.wpilibcontroller.ArmFeedforward;
-import com.arcrobotics.ftclib.controller.wpilibcontroller.SimpleMotorFeedforward;
 import com.danpeled.msftc.GearBox;
 import com.danpeled.msftc.GlobalTelemetry;
 import com.danpeled.msftc.Motor;
 import com.danpeled.msftc.MotorType;
 import com.danpeled.msftc.dashboard.TunableNumber;
 import com.danpeled.msftc.mechanisms.positional.ArmMechanism;
-import com.danpeled.msftc.mechanisms.velocity.FlywheelMechanism;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -21,7 +19,7 @@ public class ExampleOpMode extends LinearOpMode {
     private TunableNumber target1 = new TunableNumber(this, "target1", 90);
     private TunableNumber target2 = new TunableNumber(this, "target2", 0);
 
-    private final Motor flywheelMotor = new Motor("flywheelMotor")
+    private final Motor armMotor = new Motor("armMotor")
             .ofType(MotorType.GOBILDA_6000)
             .withZeroPowerBehaviour(DcMotor.ZeroPowerBehavior.BRAKE)
             .withGearBox(GearBox.fromOutputRPM(6000, 60))
@@ -29,19 +27,18 @@ public class ExampleOpMode extends LinearOpMode {
             .withSoftCurrentLimit(10)
             .withCurrentLimitEnabled()
             .enableEncoder()
-            .withFollowers(new Motor("otherFlywheel"))
             .withDirection(DcMotorSimple.Direction.FORWARD);
 
-    private final FlywheelMechanism arm = new FlywheelMechanism("flywheel", flywheelMotor)
+    private final ArmMechanism arm = new ArmMechanism("arm", armMotor)
             .withLimits(0, 100)
             .withPID(new PIDController(0.1, 0, 0))
-            .withFeedforward(new SimpleMotorFeedforward(0, 0, 0));
+            .withFeedforward(new ArmFeedforward(0, 0, 0));
 
     @Override
     public void runOpMode() {
         GlobalTelemetry.init(telemetry);
 
-        flywheelMotor.queryMotor(hardwareMap);
+        armMotor.queryMotor(hardwareMap);
 
         arm.initConfig();
 

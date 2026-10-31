@@ -114,13 +114,13 @@ public class Team6976TeleOp2027 extends LinearOpMode {
             if(gamepad1.x) {
                 robot.shooter.setSetpoint(1400);
             }
-           if (gamepad1.y){
-               robot.IntakeMotor.setPower(1);
+            if (gamepad1.y){
+                robot.IntakeMotor.setPower(1);
             }
-           if (gamepad1.b){
-               robot.TransferRight.setPower(1);
-               robot.TransferRight.setPower(-1);
-               robot.TransferMotor.setPower(1);
+            if (gamepad1.b){
+                robot.TransferRight.setPower(1);
+                robot.TransferRight.setPower(-1);
+                robot.TransferMotor.setPower(1);
             }
 
 
@@ -218,9 +218,9 @@ public class Team6976TeleOp2027 extends LinearOpMode {
             robot.TransferMotor.setPower(1);
             kick();
         }
-        
+
     }
-    
+
     public void kick(){
         robot.kicker.setPosition(1);
         if(Math.abs(robot.kicker.getPosition() - 1) < .1){

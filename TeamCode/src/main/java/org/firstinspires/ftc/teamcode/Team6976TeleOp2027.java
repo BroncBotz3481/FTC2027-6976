@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.danpeled.msftc.GlobalTelemetry;
 import com.danpeled.msftc.VelocityUnit;
 import com.danpeled.msftc.dashboard.TunableNumber;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -31,6 +32,13 @@ public class Team6976TeleOp2027 extends LinearOpMode {
         robot.Map(hardwareMap);
         telemetry.addData("Say", "TeleOp Starting");
         telemetry.update();
+
+        GlobalTelemetry.init(telemetry);
+
+        robot.flywheelMotor1.queryMotor(hardwareMap);
+        robot.flywheelMotor2.queryMotor(hardwareMap);
+
+        robot.shooter.initConfig();
 
         robot.DriveRightFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         robot.DriveRightFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);

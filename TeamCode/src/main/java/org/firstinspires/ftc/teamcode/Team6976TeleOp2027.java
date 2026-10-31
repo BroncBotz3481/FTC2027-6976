@@ -13,8 +13,12 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+import org.firstinspires.ftc.robotcore.external.navigation.Velocity;
+
 @TeleOp(name = "Team6976TeleOp2027", group = "6976")
 public class Team6976TeleOp2027 extends LinearOpMode {
+
+
     Team6976HM2027 robot = new Team6976HM2027();
 
     //ticks per second, max 6000 RPM motor is 2,800 TPS.
@@ -33,12 +37,14 @@ public class Team6976TeleOp2027 extends LinearOpMode {
         telemetry.addData("Say", "TeleOp Starting");
         telemetry.update();
 
-        GlobalTelemetry.init(telemetry);
+//        GlobalTelemetry.init(telemetry);
 
-        robot.flywheelMotor1.queryMotor(hardwareMap);
-        robot.flywheelMotor2.queryMotor(hardwareMap);
+//        robot.flywheelMotor1.queryMotor(hardwareMap);
+//        robot.flywheelMotor2.queryMotor(hardwareMap);
 
-        robot.shooter.initConfig();
+//        robot.shooter.initConfig();
+
+
 
         robot.DriveRightFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         robot.DriveRightFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -96,7 +102,7 @@ public class Team6976TeleOp2027 extends LinearOpMode {
             telemetry.addData("LeftFront", robot.DriveLeftFront.getCurrentPosition());
             telemetry.addData("LeftBack", robot.DriveLeftBack.getCurrentPosition());
 
-            telemetry.addData("ShooterSpeed", robot.shooter.getVelocity(VelocityUnit.TicksPerSecond));
+            telemetry.addData("ShooterSpeed", robot.frontShooter.getVelocity());
             telemetry.addData("ShooterSetpoint", speed[index]);
             telemetry.update();
 
@@ -112,14 +118,14 @@ public class Team6976TeleOp2027 extends LinearOpMode {
 
 
             if(gamepad1.x) {
-                robot.shooter.setSetpoint(1400);
+                shooting(1000);
             }
            if (gamepad1.y){
                robot.IntakeMotor.setPower(1);
             }
            if (gamepad1.b){
                robot.TransferRight.setPower(1);
-               robot.TransferRight.setPower(-1);
+               robot.TransferLeft.setPower(-1);
                robot.TransferMotor.setPower(1);
             }
 
@@ -139,22 +145,15 @@ public class Team6976TeleOp2027 extends LinearOpMode {
             //close the gate
 
             if (gamepad2.left_trigger >= 0.5f){
-                robot.IntakeLeft.setPower(1); //Intakes will spin in the same direction because one is reversed in HW
-                robot.IntakeRight.setPower(1);
-                robot.IntakeMotor.setPower(0.5);
-                robot.TransferRight.setPower(0.5);
-                robot.TransferLeft.setPower(0.5);
-                robot.TransferMotor.setPower(0.5);
-                //Intake motor + transfer will also be spinning
+
+                intaking(1);
             }
 
             //set servo powers to 0
             robot.TransferRight.setPower(0);
             robot.TransferLeft.setPower(0);
             robot.kicker.setPosition(0);
-            robot.IntakeLeft.setPower(0);
-
-            robot.shooter.setSetpoint(0);
+            robot.TransferMotor.setPower(0);
 
             //Optional Challenge, make seperate methods for intaking() and shooting()
         }
@@ -208,11 +207,11 @@ public class Team6976TeleOp2027 extends LinearOpMode {
     }
 
 
-    public void shooting(double radPerSecond) {
+    public void shooting(double TPS) {
+       robot.backShooter.setVelocity(TPS);
+       robot.frontShooter.setVelocity(TPS);
 
-        robot.shooter.setSetpoint(radPerSecond);
-
-        if(Math.abs(robot.shooter.getVelocity(VelocityUnit.TicksPerSecond) - radPerSecond) < 300){
+        if(Math.abs(robot.frontShooter.getVelocity()- TPS) < 300){
             robot.TransferRight.setPower(1);
             robot.TransferLeft.setPower(1);
             robot.TransferMotor.setPower(1);
@@ -229,12 +228,11 @@ public class Team6976TeleOp2027 extends LinearOpMode {
     }
 
     public void intaking(double power) {
-        robot.IntakeLeft.setPower(1);
-        robot.IntakeRight.setPower(1);
-        robot.IntakeMotor.setPower(0.5);
-        robot.TransferRight.setPower(0.5);
-        robot.TransferLeft.setPower(0.5);
-        robot.TransferMotor.setPower(0.5);
+
+        robot.IntakeMotor.setPower(power);
+        robot.TransferRight.setPower(power);
+        robot.TransferLeft.setPower(-power);
+        robot.TransferMotor.setPower(power);
     }
 }
 

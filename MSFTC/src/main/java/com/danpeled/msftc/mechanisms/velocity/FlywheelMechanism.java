@@ -69,11 +69,11 @@ public class FlywheelMechanism extends Mechanism {
         return this;
     }
 
-    private void setLowerLimit(double lower) {
+    protected void setLowerLimit(double lower) {
         lowerLimit.setValue(lower);
     }
 
-    private void setUpperLimit(double upper) {
+    protected void setUpperLimit(double upper) {
         upperLimit.setValue(upper);
     }
 

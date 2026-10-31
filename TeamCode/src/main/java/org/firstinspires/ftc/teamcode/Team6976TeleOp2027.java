@@ -17,17 +17,14 @@ public class Team6976TeleOp2027 extends LinearOpMode {
     Team6976HM2027 robot = new Team6976HM2027();
 
     //ticks per second, max 6000 RPM motor is 2,800 TPS.
-    private TunableNumber speedHigh = new TunableNumber(this, "speedHigh", 2000);
-    private TunableNumber speedMid = new TunableNumber(this, "speedMid", 1400);
-    private TunableNumber speedLow = new TunableNumber(this, "speedLow", 600);
-    private TunableNumber zeroPower = new TunableNumber(this, "zeroPower", 0);
 
-    private TunableNumber[] speed = {speedLow, speedMid, speedHigh};
+
+    private double[] speed = {2000, 1400, 60};
     int index = 1;
 
 
     @Override
-    public void runOpMode() throws InterruptedException {
+    public void runOpMode() {
 
 
 
@@ -92,7 +89,7 @@ public class Team6976TeleOp2027 extends LinearOpMode {
             telemetry.addData("LeftBack", robot.DriveLeftBack.getCurrentPosition());
 
             telemetry.addData("ShooterSpeed", robot.shooter.getVelocity(VelocityUnit.TicksPerSecond));
-            telemetry.addData("ShooterSetpoint", speed[index].getValueAsDouble());
+            telemetry.addData("ShooterSetpoint", speed[index]);
             telemetry.update();
 
             if (gamepad1.dpad_up){
@@ -105,6 +102,20 @@ public class Team6976TeleOp2027 extends LinearOpMode {
                 moveRight(mag);
             }
 
+
+            if(gamepad1.x) {
+                robot.shooter.setSetpoint(1400);
+            }
+           if (gamepad1.y){
+               robot.IntakeMotor.setPower(1);
+            }
+           if (gamepad1.b){
+               robot.TransferRight.setPower(1);
+               robot.TransferRight.setPower(-1);
+               robot.TransferMotor.setPower(1);
+            }
+
+
             if(gamepad2.x){
                 index = 0;
             } else if (gamepad2.y){
@@ -113,7 +124,7 @@ public class Team6976TeleOp2027 extends LinearOpMode {
                 index = 2;
             }
 
-            if (gamepad2.right_trigger >= 0.5f){
+            if (gamepad2.right_trigger >= 0.5f) {
                 shooting(speed[index]);
             }
             //Set motor powers to 0, rn the motors will run forever and ever cuz you never told it to go back to 0 power
@@ -128,6 +139,7 @@ public class Team6976TeleOp2027 extends LinearOpMode {
                 robot.TransferMotor.setPower(0.5);
                 //Intake motor + transfer will also be spinning
             }
+
             //set servo powers to 0
             robot.TransferRight.setPower(0);
             robot.TransferLeft.setPower(0);
@@ -188,15 +200,14 @@ public class Team6976TeleOp2027 extends LinearOpMode {
     }
 
 
-    public void shooting(TunableNumber radPerSecond) {
+    public void shooting(double radPerSecond) {
 
-        robot.shooter.setSetpoint(radPerSecond.getValueAsDouble());
+        robot.shooter.setSetpoint(radPerSecond);
 
-        if(Math.abs(robot.shooter.getVelocity(VelocityUnit.TicksPerSecond) - radPerSecond.getValueAsDouble()) == 300){
+        if(Math.abs(robot.shooter.getVelocity(VelocityUnit.TicksPerSecond) - radPerSecond) < 300){
             robot.TransferRight.setPower(1);
             robot.TransferLeft.setPower(1);
             robot.TransferMotor.setPower(1);
-            robot.intake.setPower(1);
             kick();
         }
         
@@ -204,7 +215,7 @@ public class Team6976TeleOp2027 extends LinearOpMode {
     
     public void kick(){
         robot.kicker.setPosition(1);
-        if(Math.abs(robot.kicker.getPosition() - 1) == .1){
+        if(Math.abs(robot.kicker.getPosition() - 1) < .1){
             robot.kicker.setPosition(0);
         }
     }

@@ -23,7 +23,8 @@ public class Team6976TeleOp2027 extends LinearOpMode {
     RobotSystems commands = new RobotSystems(robot);
     //ticks per second, max 6000 RPM motor is 2,800 TPS.
 
-
+    private TunableNumber defaultSpeed = new TunableNumber(this,"Default Speed", 0);
+    private TunableNumber turretPose = new TunableNumber(this,"TurretPose", 0);
     private double[] speed = {2000, 1400, 60};
     int index = 1;
 
@@ -56,7 +57,7 @@ public class Team6976TeleOp2027 extends LinearOpMode {
         robot.DriveLeftFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         //servos here. Ex: robot.gate.setPosition(0); When robot starts, the gate will be set to close
-        boolean fieldCentric = true;
+        boolean fieldCentric = false;
 
         waitForStart();
 
@@ -136,6 +137,7 @@ public class Team6976TeleOp2027 extends LinearOpMode {
             //telemetry.addData("ShooterSpeed", robot.frontShooter.getVelocity());
             telemetry.addData("ShooterSpeed", robot.shooter.getVelocity(VelocityUnit.TicksPerSecond));
             telemetry.addData("ShooterSetpoint", speed[index]);
+            telemetry.addData("Turret Pose", robot.TurretServo.getPosition());
             telemetry.update();
 
             if (gamepad1.dpad_up){
@@ -161,6 +163,16 @@ public class Team6976TeleOp2027 extends LinearOpMode {
                robot.TransferMotor.setPower(1);
             }
 
+            if (gamepad1.dpad_up){
+                robot.TurretServo.setPosition(turretPose.getValueAsDouble());
+            } else if (gamepad1.dpad_down){
+                robot.TurretServo.setPosition(0);
+            } else if (gamepad1.dpad_left){
+                robot.TurretServo.setPosition(0.5);
+            } else if (gamepad1.dpad_right){
+                robot.TurretServo.setPosition(1);
+            }
+
 
             if(gamepad2.x){
                 index = 0;
@@ -172,6 +184,9 @@ public class Team6976TeleOp2027 extends LinearOpMode {
 
             if (gamepad2.right_trigger >= 0.5f) {
                 shooting(speed[index]);
+            }
+            if (gamepad2.right_bumper){
+                kick();
             }
             //Set motor powers to 0, rn the motors will run forever and ever cuz you never told it to go back to 0 power
             //close the gate
@@ -185,7 +200,7 @@ public class Team6976TeleOp2027 extends LinearOpMode {
             robot.TransferLeft.setPower(0);
             robot.kicker.setPosition(0);
             robot.TransferMotor.setPower(0);
-
+            robot.shooter.setSetpoint(defaultSpeed.getValueAsDouble());
             //Optional Challenge, make seperate methods for intaking() and shooting()
         }
     }

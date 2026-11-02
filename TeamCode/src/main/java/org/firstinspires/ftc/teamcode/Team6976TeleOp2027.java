@@ -20,7 +20,7 @@ public class Team6976TeleOp2027 extends LinearOpMode {
 
 
     Team6976HM2027 robot = new Team6976HM2027();
-
+    RobotSystems commands = new RobotSystems(robot);
     //ticks per second, max 6000 RPM motor is 2,800 TPS.
 
 
@@ -237,8 +237,7 @@ public class Team6976TeleOp2027 extends LinearOpMode {
         robot.DriveLeftBack.setPower(0);
     }
 
-
-    public void shooting(double TPS) {
+    public void shooting(double TPS){
 //        robot.backShooter.setVelocity(TPS);
 //        robot.frontShooter.setVelocity(TPS);
         robot.shooter.setSetpoint(TPS);
@@ -249,9 +248,15 @@ public class Team6976TeleOp2027 extends LinearOpMode {
             robot.TransferMotor.setPower(1);
             kick();
         }
-        
     }
-    
+
+    public void intaking(double power){
+        robot.IntakeMotor.setPower(power);
+        robot.TransferRight.setPower(power);
+        robot.TransferLeft.setPower(-power);
+        robot.TransferMotor.setPower(power);
+    }
+
     public void kick(){
         robot.kicker.setPosition(1);
         if(Math.abs(robot.kicker.getPosition() - 1) < .1){
@@ -259,12 +264,20 @@ public class Team6976TeleOp2027 extends LinearOpMode {
         }
     }
 
-    public void intaking(double power) {
-
-        robot.IntakeMotor.setPower(power);
-        robot.TransferRight.setPower(power);
-        robot.TransferLeft.setPower(-power);
-        robot.TransferMotor.setPower(power);
+    public void transfer(){
+        robot.TransferRight.setPower(1);
+        robot.TransferLeft.setPower(-1);
+        robot.TransferMotor.setPower(1);
     }
+
+    public void outtake(double power){
+        robot.IntakeMotor.setPower(-power);
+        robot.TransferRight.setPower(-power);
+        robot.TransferLeft.setPower(power);
+        robot.TransferMotor.setPower(-power);
+    }
+    
+
+
 }
 

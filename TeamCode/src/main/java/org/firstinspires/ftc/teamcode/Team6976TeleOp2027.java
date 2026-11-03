@@ -234,6 +234,12 @@ public class Team6976TeleOp2027 extends LinearOpMode {
         robot.intakeMotor.setPower(power);
      }
 
+    public void outtake(double power) {
+        robot.intakeLeft.setPower(power);
+        robot.intakeRight.setPower(-power);
+        robot.intakeMotor.setPower(-power);
+    }
+
      public void shoot(double power){
         robot.shooterLeft.setPower(-power);
         robot.shooterRight.setPower(power);
@@ -264,6 +270,12 @@ public class Team6976TeleOp2027 extends LinearOpMode {
         robot.intakeRight.setPower(1);
         robot.intakeMotor.setPower(0.5);
         robot.transferMotor.setPower(0.5);
+    }
+    public void outtaking(double power) {
+        robot.intakeLeft.setPower(-1);
+        robot.intakeRight.setPower(-1);
+        robot.intakeMotor.setPower(-0.5);
+        robot.transferMotor.setPower(-0.5);
     }
 }
 

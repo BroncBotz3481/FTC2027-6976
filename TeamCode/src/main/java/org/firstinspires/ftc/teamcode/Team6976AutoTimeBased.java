@@ -1,10 +1,15 @@
 package org.firstinspires.ftc.teamcode;
 
+
+
+import static android.text.Selection.moveLeft;
+
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-@Autonomous (name="Team4008AutoTimeBased", group="4008")
+
+@Autonomous (name="Team6976AutoTimeBased", group="6976")
 public class Team6976AutoTimeBased extends LinearOpMode {
 
     Team6976HM2027 robot = new Team6976HM2027();
@@ -16,13 +21,77 @@ public class Team6976AutoTimeBased extends LinearOpMode {
         sleep(3000);
         waitForStart();
 
-        moveForward(0.5,1000); // This powers all the motors to move the robot forward for 1000 milseconds
+        moveForward(0.8, 1000);
+
+        moveLeft(0.8, 1000);
+        
+        //moveForward(0.5,1000); // This powers all the motors to move the robot forward for 1000 milseconds
     }
 
     public void moveForward (double power, int time){
         robot.DriveRightFront.setPower(power);
         robot.DriveLeftFront.setPower(power);
         robot.DriveRightBack.setPower(power);
+        robot.DriveLeftBack.setPower(power);
+        sleep(time);
+        robot.DriveRightFront.setPower(0);
+        robot.DriveLeftFront.setPower(0);
+        robot.DriveRightBack.setPower(0);
+        robot.DriveLeftBack.setPower(0);
+    }
+
+    public void moveBackward (double power, int time){
+        robot.DriveRightFront.setPower(-power);
+        robot.DriveLeftFront.setPower(-power);
+        robot.DriveRightBack.setPower(-power);
+        robot.DriveLeftBack.setPower(-power);
+        sleep(time);
+        robot.DriveRightFront.setPower(0);
+        robot.DriveLeftFront.setPower(0);
+        robot.DriveRightBack.setPower(0);
+        robot.DriveLeftBack.setPower(0);
+    }
+
+    public void moveLeft (double power, int time){
+        robot.DriveRightFront.setPower(power);
+        robot.DriveLeftFront.setPower(-power);
+        robot.DriveRightBack.setPower(-power);
+        robot.DriveLeftBack.setPower(power);
+        sleep(time);
+        robot.DriveRightFront.setPower(0);
+        robot.DriveLeftFront.setPower(0);
+        robot.DriveRightBack.setPower(0);
+        robot.DriveLeftBack.setPower(0);
+    }
+
+    public void moveRight (double power, int time){
+        robot.DriveRightFront.setPower(-power);
+        robot.DriveLeftFront.setPower(power);
+        robot.DriveRightBack.setPower(power);
+        robot.DriveLeftBack.setPower(-power);
+        sleep(time);
+        robot.DriveRightFront.setPower(0);
+        robot.DriveLeftFront.setPower(0);
+        robot.DriveRightBack.setPower(0);
+        robot.DriveLeftBack.setPower(0);
+    }
+
+    public void strafeLeft (double power, int time){
+        robot.DriveRightFront.setPower(power);
+        robot.DriveLeftFront.setPower(-power);
+        robot.DriveRightBack.setPower(power);
+        robot.DriveLeftBack.setPower(-power);
+        sleep(time);
+        robot.DriveRightFront.setPower(0);
+        robot.DriveLeftFront.setPower(0);
+        robot.DriveRightBack.setPower(0);
+        robot.DriveLeftBack.setPower(0);
+    }
+
+    public void strafeRight (double power, int time){
+        robot.DriveRightFront.setPower(-power);
+        robot.DriveLeftFront.setPower(power);
+        robot.DriveRightBack.setPower(-power);
         robot.DriveLeftBack.setPower(power);
         sleep(time);
         robot.DriveRightFront.setPower(0);

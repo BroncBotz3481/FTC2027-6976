@@ -38,10 +38,7 @@ public class Team6976AutoTimeBased extends LinearOpMode {
             strafeLeft(10, 0.5, 3000);
 
             // 3. Turn 180 degrees
-            turn180(0.4, 4000);
 
-            // 4. Drive forward 24 inches
-            driveForward(24, 0.5, 4000);
         }
 
         stopDrive();

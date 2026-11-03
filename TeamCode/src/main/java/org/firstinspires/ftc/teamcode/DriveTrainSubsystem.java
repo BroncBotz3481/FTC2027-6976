@@ -4,11 +4,11 @@ import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.gam
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 
-public class DriveTrainSubSystem {
+public class DriveTrainSubsystem {
 
     private Team6976HM2027 robot;
 
-    public DriveTrainSubSystem(Team6976HM2027 robot){
+    public DriveTrainSubsystem(Team6976HM2027 robot){
         this.robot = robot;
     }
 
@@ -72,16 +72,49 @@ public class DriveTrainSubSystem {
         robot.DriveRightBack.setPower(backRightPower * mag);
     }
 
-    public void defaultCommand(boolean toggle){
-
+    public void defaultCommand(boolean isFieldCentricTrue){
+        if (!isFieldCentricTrue){
+            driveRobotCentric();
+        } else {
+            driveFieldCentric();
+        }
     }
 
-    public void driveForward(double power){
+    public void driveForward(double power) {
         robot.DriveLeftFront.setPower(power);
+        robot.DriveRightFront.setPower(-power);
+        robot.DriveLeftBack.setPower(-power);
+        robot.DriveRightBack.setPower(power);
+    }
+    //
+    public void driveRight(double power) {
+        // Left Wheels                         //Right Wheels
+        robot.DriveLeftFront.setPower(-power);
         robot.DriveRightFront.setPower(power);
         robot.DriveLeftBack.setPower(power);
+        robot.DriveRightBack.setPower(-power);
+    }
+    public void driveLeft(double power) {
+        // Left Wheels                         //Right Wheels
+        robot.DriveLeftFront.setPower(power);
+        robot.DriveRightFront.setPower(-power);
+        robot.DriveLeftBack.setPower(-power);
         robot.DriveRightBack.setPower(power);
     }
 
-    public void driveBackward
+    public void driveBackward(double power) {
+        // Left Wheels                         //Right Wheels
+        robot.DriveLeftFront.setPower(-power);
+        robot.DriveRightFront.setPower(-power);
+        robot.DriveLeftBack.setPower(-power);
+        robot.DriveRightBack.setPower(-power);
+    }
+
+    public void stopDriveTrainMotors() {
+        // Left Wheels                         //Right Wheels
+        robot.DriveLeftFront.setPower(0);
+        robot.DriveRightFront.setPower(0);
+        robot.DriveRightBack.setPower(0);
+        robot.DriveLeftBack.setPower(0);
+    }
 }

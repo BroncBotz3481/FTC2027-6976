@@ -1,6 +1,5 @@
 package org.firstinspires.ftc.teamcode;
 
-import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.gamepad1;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 
@@ -12,18 +11,14 @@ public class DriveTrainSubsystem {
         this.robot = robot;
     }
 
-    public void driveFieldCentric(){
-        double y = -gamepad1.left_stick_y; // Remember, Y stick value is reversed
-        double x = gamepad1.left_stick_x;
-        double rx = gamepad1.right_stick_x;
-        boolean speedslow = gamepad1.right_bumper;
-        double mag = speedslow ? 0.5 : 1.0;
+    public void driveFieldCentric(float y, float x, float rx, double mag){
+         y = -y; // Remember, Y stick value is reversed
+         x = x;
+         rx = rx;
         // This button choice was made so that it is hard to hit on accident,
         // it can be freely changed based on preference.
         // The equivalent button is start on Xbox-style controllers.
-        if (gamepad1.options) {
-            robot.imu.resetYaw();
-        }
+
 
         double botHeading = robot.imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS);
 
@@ -48,12 +43,11 @@ public class DriveTrainSubsystem {
         robot.DriveRightBack.setPower(backRightPower * mag);
     }
 
-    public void driveRobotCentric(){
-        double y = gamepad1.left_stick_y; // Remember, this is reversed!
-        double x = -gamepad1.left_stick_x * 1.1; // Counteract imperfect strafing
-        double rx = -gamepad1.right_stick_x;
-        boolean speedslow = gamepad1.right_bumper;
-        double mag = speedslow ? 0.5 : 1.0;
+    public void driveRobotCentric(float y, float x, float rx, double mag){
+        y = y; // Remember, this is reversed!
+        x = -x * 1.1f; // Counteract imperfect strafing
+        rx = -rx;
+
         // Optional Deadzones
 //            double y = (Math.abs(gamepad1.left_stick_y) > 0.1 ? gamepad1.left_stick_y : 0); // Remember, this is reversed!
 //            double x = -(Math.abs(gamepad1.left_stick_x) > 0.1 ? gamepad1.left_stick_x : 0) * 1.1; // Counteract imperfect strafing
@@ -72,11 +66,11 @@ public class DriveTrainSubsystem {
         robot.DriveRightBack.setPower(backRightPower * mag);
     }
 
-    public void defaultCommand(boolean isFieldCentricTrue){
+    public void defaultCommand(boolean isFieldCentricTrue, float y, float x, float rx, double isSpeedSlow){
         if (!isFieldCentricTrue){
-            driveRobotCentric();
+            driveRobotCentric(y, x, rx, isSpeedSlow);
         } else {
-            driveFieldCentric();
+            driveFieldCentric(y, x, rx, isSpeedSlow);
         }
     }
 

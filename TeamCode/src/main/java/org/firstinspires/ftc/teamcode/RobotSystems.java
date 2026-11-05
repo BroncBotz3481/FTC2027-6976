@@ -16,7 +16,7 @@ public class RobotSystems {
         robot.shooter.setSetpoint(TPS);
 
         if(Math.abs(robot.shooter.getVelocity(VelocityUnit.TicksPerSecond)- TPS) < 300){
-            robot.TransferRight.setPower(1);
+            robot.TransferRight.setPower(-1);
             robot.TransferLeft.setPower(1);
             robot.TransferMotor.setPower(1);
             kick();
@@ -25,8 +25,8 @@ public class RobotSystems {
 
     public void intake(double power){
         robot.IntakeMotor.setPower(power);
-        robot.TransferRight.setPower(power);
-        robot.TransferLeft.setPower(-power);
+        robot.TransferRight.setPower(-power);
+        robot.TransferLeft.setPower(power);
         robot.TransferMotor.setPower(power);
     }
 

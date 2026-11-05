@@ -15,6 +15,7 @@ public class RobotSystems {
 //        robot.frontShooter.setVelocity(TPS);
 
         robot.frontShooter.setVelocity(TPS);
+        robot.backShooter.setVelocity(TPS);
 //        robot.shooter.setSetpoint(TPS);
 //
 //        if(Math.abs(robot.shooter.getVelocity(VelocityUnit.TicksPerSecond)- TPS) < 300){

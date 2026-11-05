@@ -9,6 +9,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Gamepad;
+import com.qualcomm.robotcore.hardware.PIDFCoefficients;
 
 import org.firstinspires.ftc.robotcontroller.internal.FtcRobotControllerActivity;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
@@ -25,13 +26,17 @@ public class Team6976TeleOp2027 extends LinearOpMode {
 
 
     private double[] speed = {2000, 1400, 60};
+
     int index = 1;
+
     TunableNumber defaultShooterSpeed = new TunableNumber(this,"Default Speed", 0);
 
     TunableNumber turretPose = new TunableNumber(this,"TurretPose", 0);;
-
+    double p = 5;
+    double ks = 7;
     @Override
     public void runOpMode() {
+
 
 
 
@@ -41,10 +46,10 @@ public class Team6976TeleOp2027 extends LinearOpMode {
 
         GlobalTelemetry.init(telemetry);
 
-        robot.flywheelMotor1.queryMotor(hardwareMap);
-        robot.flywheelMotor2.queryMotor(hardwareMap);
-
-        robot.shooter.initConfig();
+//        robot.flywheelMotor1.queryMotor(hardwareMap);
+//        robot.flywheelMotor2.queryMotor(hardwareMap);
+//
+//        robot.shooter.initConfig();
 
 
         robot.DriveRightFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -55,6 +60,10 @@ public class Team6976TeleOp2027 extends LinearOpMode {
         robot.DriveRightBack.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         robot.DriveLeftFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         robot.DriveLeftFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        robot.frontShooter.setPIDFCoefficients(DcMotor.RunMode.RUN_USING_ENCODER, new PIDFCoefficients(p,0,0,ks));
+        robot.backShooter.setPIDFCoefficients(DcMotor.RunMode.RUN_USING_ENCODER, new PIDFCoefficients(p,0,0,ks));
+
+        robot.TurretServo.setPosition(0.5);
 
         //servos here. Ex: robot.gate.setPosition(0); When robot starts, the gate will be set to close
         boolean fieldCentric = false;
@@ -157,8 +166,8 @@ public class Team6976TeleOp2027 extends LinearOpMode {
                 robot.TransferLeft.setPower(0);
                 robot.kicker.setPosition(0);
                 robot.TransferMotor.setPower(0);
-                robot.shooter.setSetpoint(defaultShooterSpeed.getValueAsDouble());
-                robot.shooter.update();
+//                robot.shooter.setSetpoint(defaultShooterSpeed.getValueAsDouble());
+//                robot.shooter.update();
             }
         }
 
@@ -169,10 +178,11 @@ public class Team6976TeleOp2027 extends LinearOpMode {
         telemetry.addData("LeftFront", robot.DriveLeftFront.getCurrentPosition());
         telemetry.addData("LeftBack", robot.DriveLeftBack.getCurrentPosition());
 
-        //telemetry.addData("ShooterSpeed", robot.frontShooter.getVelocity());
-        telemetry.addData("ShooterSpeed", robot.shooter.getVelocity(VelocityUnit.TicksPerSecond));
+        telemetry.addData("ShooterSpeed", robot.frontShooter.getVelocity());
+//        telemetry.addData("ShooterSpeed", robot.shooter.getVelocity(VelocityUnit.TicksPerSecond));
         telemetry.addData("ShooterSetpoint", speed[index]);
         telemetry.addData("Turret Pose", robot.TurretServo.getPosition());
+//        telemetry.addData("flywheelfront", robot.flywheelMotor1.getVelocity(VelocityUnit.TicksPerSecond));
         telemetry.update();
     }
 

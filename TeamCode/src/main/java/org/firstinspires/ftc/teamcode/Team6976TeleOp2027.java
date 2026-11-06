@@ -24,16 +24,21 @@ public class Team6976TeleOp2027 extends LinearOpMode {
 
     //ticks per second, max 6000 RPM motor is 2,800 TPS.
 
+    double low = 600;
+    double mid = 670;
+    double high = 750;
+    private double addedPower = 0;
 
-    private double[] speed = {2000, 1400, 60};
+    private double[] speed = {low + addedPower, mid + addedPower, high + addedPower};
 
     int index = 1;
 
     TunableNumber defaultShooterSpeed = new TunableNumber(this,"Default Speed", 0);
 
     TunableNumber turretPose = new TunableNumber(this,"TurretPose", 0);;
-    double p = 5;
-    double ks = 7;
+    double p = 20;
+    double ks = 18.90;
+
     @Override
     public void runOpMode() {
 
@@ -60,8 +65,6 @@ public class Team6976TeleOp2027 extends LinearOpMode {
         robot.DriveRightBack.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         robot.DriveLeftFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         robot.DriveLeftFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        robot.frontShooter.setPIDFCoefficients(DcMotor.RunMode.RUN_USING_ENCODER, new PIDFCoefficients(p,0,0,ks));
-        robot.backShooter.setPIDFCoefficients(DcMotor.RunMode.RUN_USING_ENCODER, new PIDFCoefficients(p,0,0,ks));
 
         robot.TurretServo.setPosition(0.5);
 
@@ -107,8 +110,15 @@ public class Team6976TeleOp2027 extends LinearOpMode {
                 drivetrain.driveRight(mag);
             }
 
+            if(gamepad1.y){
+                addedPower += 50;
+            }
+            if (gamepad1.a){
+                addedPower -= 50;
+            }
+
             //Testing
-                boolean test = true;
+                boolean test = false;
                 if (test) {
                     if (gamepad1.x) {
                         commands.shoot(1000);
@@ -166,6 +176,8 @@ public class Team6976TeleOp2027 extends LinearOpMode {
                 robot.TransferLeft.setPower(0);
                 robot.kicker.setPosition(0);
                 robot.TransferMotor.setPower(0);
+                robot.frontShooter.setVelocity(0);
+                robot.backShooter.setVelocity(0);
 //                robot.shooter.setSetpoint(defaultShooterSpeed.getValueAsDouble());
 //                robot.shooter.update();
             }

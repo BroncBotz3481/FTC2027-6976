@@ -143,13 +143,13 @@ public class Team6976HM2027 {
         frontShooter.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
         frontShooter.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
         frontShooter.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
-        frontShooter.setPIDFCoefficients(DcMotor.RunMode.RUN_USING_ENCODER, new PIDFCoefficients(1.8246, 0, 0, 0.01));
+        frontShooter.setPIDFCoefficients(DcMotor.RunMode.RUN_USING_ENCODER, new PIDFCoefficients(20, 0, 0, 18));
 
         backShooter.setDirection(DcMotorEx.Direction.REVERSE);
         backShooter.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
         backShooter.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
         backShooter.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
-        backShooter.setPIDFCoefficients(DcMotor.RunMode.RUN_USING_ENCODER, new PIDFCoefficients(1.8246, 0, 0, 0.01));
+        backShooter.setPIDFCoefficients(DcMotor.RunMode.RUN_USING_ENCODER, new PIDFCoefficients(20, 0, 0, 18));
 
 
     }

@@ -15,15 +15,13 @@ public class RobotSystems {
 //        robot.frontShooter.setVelocity(TPS);
 
         robot.frontShooter.setVelocity(TPS);
-        robot.backShooter.setVelocity(TPS);
+        robot.backShooter.setVelocity(-TPS);
 //        robot.shooter.setSetpoint(TPS);
 //
-//        if(Math.abs(robot.shooter.getVelocity(VelocityUnit.TicksPerSecond)- TPS) < 300){
-//            robot.TransferRight.setPower(-1);
-//            robot.TransferLeft.setPower(1);
-//            robot.TransferMotor.setPower(1);
-//            kick();
-//        }
+            robot.TransferRight.setPower(-1);
+            robot.TransferLeft.setPower(1);
+            robot.TransferMotor.setPower(1);
+            kick();
     }
 
     public void intake(double power){

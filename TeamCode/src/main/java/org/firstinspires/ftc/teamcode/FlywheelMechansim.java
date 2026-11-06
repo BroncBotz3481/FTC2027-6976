@@ -75,11 +75,11 @@ public class FlywheelMechansim extends OpMode {
             P += stepSizes[stepIndex];
         }
         PIDFCoefficients pidfCoefficients = new PIDFCoefficients(P, 0, 0, F);
-        PIDFCoefficients backpidfCoefficients = new PIDFCoefficients(P, 0, 0, F + 2.5f);
+        PIDFCoefficients backpidfCoefficients = new PIDFCoefficients(P, 0, 0, F );
         robot.frontShooter.setPIDFCoefficients(DcMotorEx.RunMode.RUN_USING_ENCODER, pidfCoefficients);
         robot.backShooter.setPIDFCoefficients(DcMotorEx.RunMode.RUN_USING_ENCODER, backpidfCoefficients);
         robot.frontShooter.setVelocity(curTargetVelocity);
-        robot.backShooter.setVelocity(curTargetVelocity);
+        robot.backShooter.setVelocity(-curTargetVelocity);
 
         double curVelocity = robot.frontShooter.getVelocity();
         double error = curTargetVelocity - curVelocity;

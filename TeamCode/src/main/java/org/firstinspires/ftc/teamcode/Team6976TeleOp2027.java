@@ -94,7 +94,7 @@ public class Team6976TeleOp2027 extends LinearOpMode {
                 robot.imu.resetYaw();
             }
 
-            telemetry(); //pushes telementry to Driver Station
+            telemetry(fieldCentric, mag); //pushes telementry to Driver Station
 
 
             if (gamepad1.dpad_up) {
@@ -155,7 +155,7 @@ public class Team6976TeleOp2027 extends LinearOpMode {
                 }
 
                 if (gamepad2.right_trigger >= 0.5f) {
-                    commands.shoot(speed[index]);
+                    commands.shoot(speed[index] + addedPower);
                 }
                 if (gamepad2.right_bumper) {
                     commands.kick();
@@ -184,20 +184,155 @@ public class Team6976TeleOp2027 extends LinearOpMode {
         }
 
 
-    public void telemetry(){
-        telemetry.addData("RightFront", robot.DriveRightFront.getCurrentPosition());
-        telemetry.addData("RightBack", robot.DriveRightBack.getCurrentPosition());
-        telemetry.addData("LeftFront", robot.DriveLeftFront.getCurrentPosition());
-        telemetry.addData("LeftBack", robot.DriveLeftBack.getCurrentPosition());
+    public void telemetry(boolean fieldCentric, double driveSpeed) {
 
-        telemetry.addData("ShooterSpeed", robot.frontShooter.getVelocity());
-//        telemetry.addData("ShooterSpeed", robot.shooter.getVelocity(VelocityUnit.TicksPerSecond));
-        telemetry.addData("ShooterSetpoint", speed[index]);
-        telemetry.addData("Turret Pose", robot.TurretServo.getPosition());
-//        telemetry.addData("flywheelfront", robot.flywheelMotor1.getVelocity(VelocityUnit.TicksPerSecond));
+        double targetSpeed = speed[index] + addedPower;
+
+        // ==========================================
+        // TEAM HEADER
+        // ==========================================
+
+        telemetry.addLine("================================");
+        telemetry.addLine("       TEAM 6976 | TELEOP");
+        telemetry.addLine("================================");
+
+        // ==========================================
+        // GAMEPAD 1 - DRIVER CONTROLS
+        // ==========================================
+
+        telemetry.addLine("");
+        telemetry.addLine("========== GAMEPAD 1 ==========");
+        telemetry.addLine("            DRIVER");
+        telemetry.addLine("--------------------------------");
+
+        telemetry.addLine("[LEFT STICK]  Drive / Strafe");
+        telemetry.addLine("[RIGHT STICK] Rotate");
+
+        telemetry.addLine("[L3 + R3]     Toggle Field Centric");
+        telemetry.addLine("[RB]          Slow Mode (50%)");
+        telemetry.addLine("[OPTIONS]     Reset IMU Heading");
+
+        telemetry.addLine("[DPAD UP]     Drive Forward");
+        telemetry.addLine("[DPAD DOWN]   Drive Backward");
+        telemetry.addLine("[DPAD LEFT]   Strafe Left");
+        telemetry.addLine("[DPAD RIGHT]  Strafe Right");
+
+        telemetry.addLine("[Y]           Shooter Offset +50");
+        telemetry.addLine("[A]           Shooter Offset -50");
+
+        telemetry.addLine("--------------------------------");
+
+        telemetry.addData("Drive Mode",
+                fieldCentric ? "FIELD CENTRIC" : "ROBOT CENTRIC");
+
+        telemetry.addData("Drive Speed",
+                "%.0f%%", driveSpeed * 100);
+
+        telemetry.addData("Shooter Offset",
+                "%.0f TPS", addedPower);
+
+        // ==========================================
+        // GAMEPAD 2 - OPERATOR CONTROLS
+        // ==========================================
+
+        telemetry.addLine("");
+        telemetry.addLine("========== GAMEPAD 2 ==========");
+        telemetry.addLine("           OPERATOR");
+        telemetry.addLine("--------------------------------");
+
+        telemetry.addLine("[X]           Low Shooter Preset");
+        telemetry.addLine("[Y]           Mid Shooter Preset");
+        telemetry.addLine("[B]           High Shooter Preset");
+
+        telemetry.addLine("[RT]          Shoot");
+        telemetry.addLine("[RB]          Kick");
+
+        telemetry.addLine("[LT]          Intake");
+        telemetry.addLine("[LB]          Outtake");
+
+//        telemetry.addLine("[DPAD UP]     Turret Tunable Position");
+        telemetry.addLine("[DPAD DOWN]   Turret Position 0");
+        telemetry.addLine("[DPAD LEFT]   Turret Position 0.5");
+        telemetry.addLine("[DPAD RIGHT]  Turret Position 1");
+
+        telemetry.addLine("--------------------------------");
+
+        telemetry.addData("Selected Preset",
+                index == 0 ? "LOW" :
+                        index == 1 ? "MID" : "HIGH");
+
+        telemetry.addData("Shoot",
+                gamepad2.right_trigger >= 0.5 ? "ACTIVE" : "OFF");
+
+        telemetry.addData("Kick",
+                gamepad2.right_bumper ? "ACTIVE" : "OFF");
+
+        telemetry.addData("Intake",
+                gamepad2.left_trigger >= 0.5 ? "ACTIVE" : "OFF");
+
+        telemetry.addData("Outtake",
+                gamepad2.left_bumper ? "ACTIVE" : "OFF");
+
+        // ==========================================
+        // SHOOTER STATUS
+        // ==========================================
+
+        telemetry.addLine("");
+        telemetry.addLine("========== SHOOTER STATUS ==========");
+
+        telemetry.addData("Target Velocity",
+                "%.1f TPS", targetSpeed);
+
+        telemetry.addData("Front Velocity",
+                "%.1f TPS", robot.frontShooter.getVelocity());
+
+        telemetry.addData("Back Velocity",
+                "%.1f TPS", robot.backShooter.getVelocity());
+
+        telemetry.addData("Front Velocity Error",
+                "%.1f TPS",
+                targetSpeed - robot.frontShooter.getVelocity());
+
+        telemetry.addData("Back Velocity Error",
+                "%.1f TPS",
+                targetSpeed - robot.backShooter.getVelocity());
+
+        // ==========================================
+        // TURRET STATUS
+        // ==========================================
+
+        telemetry.addLine("");
+        telemetry.addLine("========== TURRET STATUS ==========");
+
+        telemetry.addData("Current Position",
+                "%.3f", robot.TurretServo.getPosition());
+
+        telemetry.addData("Tunable Position",
+                "%.3f", turretPose.getValueAsDouble());
+
+        // ==========================================
+        // DRIVETRAIN STATUS
+        // ==========================================
+
+        telemetry.addLine("");
+        telemetry.addLine("========== DRIVETRAIN ==========");
+
+        telemetry.addData("Front Left",
+                robot.DriveLeftFront.getCurrentPosition());
+
+        telemetry.addData("Front Right",
+                robot.DriveRightFront.getCurrentPosition());
+
+        telemetry.addData("Back Left",
+                robot.DriveLeftBack.getCurrentPosition());
+
+        telemetry.addData("Back Right",
+                robot.DriveRightBack.getCurrentPosition());
+
+        telemetry.addLine("================================");
+
         telemetry.update();
     }
-
 
 }
 

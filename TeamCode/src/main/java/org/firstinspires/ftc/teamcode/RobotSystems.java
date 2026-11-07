@@ -21,7 +21,7 @@ public class RobotSystems {
             robot.TransferRight.setPower(-1);
             robot.TransferLeft.setPower(1);
             robot.TransferMotor.setPower(1);
-            kick();
+//            kick();
     }
 
     public void intake(double power){
@@ -31,12 +31,12 @@ public class RobotSystems {
         robot.TransferMotor.setPower(power);
     }
 
-    public void kick(){
-        robot.kicker.setPosition(1);
-        if(Math.abs(robot.kicker.getPosition() - 1) < .1){
-            robot.kicker.setPosition(0);
-        }
-    }
+//    public void kick(){
+//        robot.kicker.setPosition(1);
+//        if(Math.abs(robot.kicker.getPosition() - 1) < .1){
+//            robot.kicker.setPosition(0);
+//        }
+//    }
 
     public void transfer(){
         robot.TransferRight.setPower(1);

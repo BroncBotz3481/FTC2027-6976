@@ -27,7 +27,7 @@ public class Team6976TeleOp2027 extends LinearOpMode {
     double low = 600;
     double mid = 670;
     double high = 750;
-    private double addedPower = 0;
+    private double addedPower = 450;
 
     private double[] speed = {low + addedPower, mid + addedPower, high + addedPower};
 
@@ -36,6 +36,14 @@ public class Team6976TeleOp2027 extends LinearOpMode {
     TunableNumber defaultShooterSpeed = new TunableNumber(this,"Default Speed", 0);
 
     TunableNumber turretPose = new TunableNumber(this,"TurretPose", 0);;
+
+    TunableNumber kP = new TunableNumber(this,"PF", 19);
+
+    TunableNumber kS = new TunableNumber(this,"SF", 10);;
+
+    TunableNumber kPB = new TunableNumber(this,"PB", 19);
+
+    TunableNumber kSB = new TunableNumber(this,"SB", 14);;
     double p = 20;
     double ks = 18.90;
 
@@ -75,6 +83,8 @@ public class Team6976TeleOp2027 extends LinearOpMode {
 
         while (opModeIsActive()) {
 
+            robot.backShooter.setPIDFCoefficients(DcMotor.RunMode.RUN_USING_ENCODER, new PIDFCoefficients(kP.getValueAsDouble(), 0, 0, kS.getValueAsDouble()));
+            robot.frontShooter.setPIDFCoefficients(DcMotor.RunMode.RUN_USING_ENCODER, new PIDFCoefficients(kPB.getValueAsDouble(), 0, 0, kSB.getValueAsDouble()));
             boolean speedslow = gamepad1.right_bumper;
             double mag = speedslow ? 0.5 : 1.0;
 
@@ -154,30 +164,32 @@ public class Team6976TeleOp2027 extends LinearOpMode {
                     index = 2;
                 }
 
-                if (gamepad2.right_trigger >= 0.5f) {
+                if (gamepad2.right_trigger >= 0.2f) {
                     commands.shoot(speed[index] + addedPower);
                 }
-                if (gamepad2.right_bumper) {
-                    commands.kick();
-                }
+//                if (gamepad2.right_bumper) {
+//                    commands.kick();
+//                }
                 //Set motor powers to 0, rn the motors will run forever and ever cuz you never told it to go back to 0 power
                 //close the gate
 
-                if (gamepad2.left_trigger >= 0.5f) {
+                if (gamepad2.left_trigger >= 0.2f) {
                     commands.intake(1);
+                } else{
+                    robot.IntakeMotor.setPower(0);
                 }
                 if (gamepad2.left_bumper) {
                     commands.outtake(1);
                 }
 
+
                 //set servo powers to 0
-                robot.IntakeMotor.setPower(0);
                 robot.TransferRight.setPower(0);
                 robot.TransferLeft.setPower(0);
-                robot.kicker.setPosition(0);
+//                robot.kicker.setPosition(0);
                 robot.TransferMotor.setPower(0);
-                robot.frontShooter.setVelocity(0);
-                robot.backShooter.setVelocity(0);
+                robot.frontShooter.setVelocity(defaultShooterSpeed.getValueAsDouble());
+                robot.backShooter.setVelocity(-defaultShooterSpeed.getValueAsDouble());
 //                robot.shooter.setSetpoint(defaultShooterSpeed.getValueAsDouble());
 //                robot.shooter.update();
             }
@@ -245,7 +257,7 @@ public class Team6976TeleOp2027 extends LinearOpMode {
         telemetry.addLine("[B]           High Shooter Preset");
 
         telemetry.addLine("[RT]          Shoot");
-        telemetry.addLine("[RB]          Kick");
+//        telemetry.addLine("[RB]          Kick");
 
         telemetry.addLine("[LT]          Intake");
         telemetry.addLine("[LB]          Outtake");
@@ -264,8 +276,8 @@ public class Team6976TeleOp2027 extends LinearOpMode {
         telemetry.addData("Shoot",
                 gamepad2.right_trigger >= 0.5 ? "ACTIVE" : "OFF");
 
-        telemetry.addData("Kick",
-                gamepad2.right_bumper ? "ACTIVE" : "OFF");
+//        telemetry.addData("Kick",
+//                gamepad2.right_bumper ? "ACTIVE" : "OFF");
 
         telemetry.addData("Intake",
                 gamepad2.left_trigger >= 0.5 ? "ACTIVE" : "OFF");

@@ -23,12 +23,24 @@ public class Team6976AutoTimeBased extends LinearOpMode {
 
         resetEncoders();
         setDriveMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        robot.TurretServo.setPosition(0);
+//        robot.TurretServo.setPosition(0);
 
         telemetry.addLine("Ready to start");
         telemetry.update();
 
         waitForStart();
+
+        robot.DriveLeftFront.setPower(-0.1);
+        robot.DriveLeftBack.setPower(-0.1);
+        robot.DriveRightBack.setPower(-0.1);
+        robot.DriveRightFront.setPower(-0.1);
+
+//        sleep(1500);
+//
+//        robot.DriveLeftFront.setPower(-0.5);
+//        robot.DriveLeftBack.setPower(-0.5);
+//        robot.DriveRightBack.setPower(0.5);
+//        robot.DriveRightFront.setPower(0.5);
 
         if (opModeIsActive()) {
 

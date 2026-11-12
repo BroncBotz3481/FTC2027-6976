@@ -11,8 +11,8 @@ import com.qualcomm.robotcore.hardware.PIDFCoefficients;
 @TeleOp
 public class FlywheelMechansim extends OpMode {
     Team6976HM2027 robot = new Team6976HM2027();
-    public double highVelocity = 1500;
-    public double lowVelocity = 600;
+    public double highVelocity = 520;
+    public double lowVelocity = 490;
 
     public double curTargetVelocity = highVelocity;
 
@@ -22,7 +22,7 @@ public class FlywheelMechansim extends OpMode {
     double[] VelocitystepSizes = {1000, 100, 100, 10, 0.001, 0.0001};
     int stepIndex = 1;
     int VelocitystepIndexstepIndex = 1;
-
+    double isNeg = 1;
 
     @Override
     public void init() {
@@ -74,6 +74,20 @@ public class FlywheelMechansim extends OpMode {
         if (gamepad1.dpadUpWasPressed()) {
             P += stepSizes[stepIndex];
         }
+
+        if (gamepad2.b){
+            robot.TransferMotor.setPower(-1 * isNeg);
+        } else{
+            robot.TransferMotor.setPower(0 * isNeg);
+        }
+        if (gamepad2.a){
+            robot.TransferLeft.setPower(1 * isNeg);
+            robot.TransferRight.setPower(-1 * isNeg);
+        }else {
+            robot.TransferLeft.setPower(0);
+            robot.TransferRight.setPower(0);
+        }
+
         PIDFCoefficients pidfCoefficients = new PIDFCoefficients(P, 0, 0, F);
         PIDFCoefficients backpidfCoefficients = new PIDFCoefficients(P, 0, 0, F );
         robot.frontShooter.setPIDFCoefficients(DcMotorEx.RunMode.RUN_USING_ENCODER, pidfCoefficients);

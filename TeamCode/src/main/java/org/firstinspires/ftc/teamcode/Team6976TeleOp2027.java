@@ -120,9 +120,9 @@ public class Team6976TeleOp2027 extends OpMode {
 
 
 
-        if (gamepad2.b){
+        if (gamepad2.left_trigger_pressed){
             robot.TransferMotor.setPower(-1 * isNeg);
-        } else{
+        } if (gamepad2.leftBumperWasPressed()){
             robot.TransferMotor.setPower(0 * isNeg);
         }
 //        if (gamepad2.a){

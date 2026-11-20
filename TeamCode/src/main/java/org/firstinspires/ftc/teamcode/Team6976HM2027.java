@@ -35,8 +35,6 @@ public class Team6976HM2027 {
     public DcMotor DriveRightFront = null;
 
     public DcMotor IntakeMotor = null;
-    public CRServo TransferLeft = null;
-    public CRServo TransferRight = null;
     public DcMotor TransferMotor = null;
 
     public Servo kicker = null;
@@ -98,8 +96,8 @@ public class Team6976HM2027 {
 
         IntakeMotor = hwMap.get(DcMotor.class,"Intake");
         TransferMotor = hwMap.get(DcMotor.class, "Transfer");
-        TransferLeft = hwMap.get(CRServo.class,"TransferLeft");
-        TransferRight = hwMap.get(CRServo.class, "TransferRight");
+//        TransferLeft = hwMap.get(CRServo.class,"TransferLeft");
+//        TransferRight = hwMap.get(CRServo.class, "TransferRight");
 
 //        kicker = hwMap.get(Servo.class,"kicker");
         TurretServo = hwMap.get(Servo.class, "TurretServo");

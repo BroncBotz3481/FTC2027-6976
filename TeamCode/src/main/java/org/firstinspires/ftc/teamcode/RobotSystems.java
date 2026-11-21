@@ -26,8 +26,8 @@ public class RobotSystems {
 
     public void intake(double power){
         robot.IntakeMotor.setPower(power);
-        robot.TransferRight.setPower(-power);
-        robot.TransferLeft.setPower(power);
+//        robot.TransferRight.setPower(-power);
+//        robot.TransferLeft.setPower(power);
         robot.TransferMotor.setPower(power);
     }
 
@@ -39,15 +39,15 @@ public class RobotSystems {
 //    }
 
     public void transfer(){
-        robot.TransferRight.setPower(1);
-        robot.TransferLeft.setPower(-1);
+//        robot.TransferRight.setPower(1);
+//        robot.TransferLeft.setPower(-1);
         robot.TransferMotor.setPower(1);
     }
 
     public void outtake(double power){
         robot.IntakeMotor.setPower(-power);
-        robot.TransferRight.setPower(power);
-        robot.TransferLeft.setPower(-power);
+//        robot.TransferRight.setPower(power);
+//        robot.TransferLeft.setPower(-power);
         robot.TransferMotor.setPower(-power);
     }
 }

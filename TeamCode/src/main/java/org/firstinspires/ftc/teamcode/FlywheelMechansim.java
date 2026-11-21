@@ -80,13 +80,13 @@ public class FlywheelMechansim extends OpMode {
         } else{
             robot.TransferMotor.setPower(0 * isNeg);
         }
-        if (gamepad2.a){
-            robot.TransferLeft.setPower(1 * isNeg);
-            robot.TransferRight.setPower(-1 * isNeg);
-        }else {
-            robot.TransferLeft.setPower(0);
-            robot.TransferRight.setPower(0);
-        }
+//        if (gamepad2.a){
+//            robot.TransferLeft.setPower(1 * isNeg);
+//            robot.TransferRight.setPower(-1 * isNeg);
+//        }else {
+//            robot.TransferLeft.setPower(0);
+//            robot.TransferRight.setPower(0);
+//        }
 
         PIDFCoefficients pidfCoefficients = new PIDFCoefficients(P, 0, 0, F);
         PIDFCoefficients backpidfCoefficients = new PIDFCoefficients(P, 0, 0, F );

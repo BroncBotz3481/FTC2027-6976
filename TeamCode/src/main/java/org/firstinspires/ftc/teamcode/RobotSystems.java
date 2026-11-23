@@ -15,7 +15,7 @@ public class RobotSystems {
 //        robot.frontShooter.setVelocity(TPS);
 
         robot.frontShooter.setVelocity(TPS);
-        robot.backShooter.setVelocity(-TPS);
+//        robot.backShooter.setVelocity(-TPS);
 //        robot.shooter.setSetpoint(TPS);
 //
 //            robot.TransferRight.setPower(-1);

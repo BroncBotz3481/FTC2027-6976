@@ -71,7 +71,7 @@ public class Team6976TeleOp2027 extends OpMode {
     @Override
     public void loop() {
 
-        robot.backShooter.setPIDFCoefficients(DcMotor.RunMode.RUN_USING_ENCODER, new PIDFCoefficients(kP.getValueAsDouble(), 0, 0, kS.getValueAsDouble()));
+//        robot.backShooter.setPIDFCoefficients(DcMotor.RunMode.RUN_USING_ENCODER, new PIDFCoefficients(kP.getValueAsDouble(), 0, 0, kS.getValueAsDouble()));
         robot.frontShooter.setPIDFCoefficients(DcMotor.RunMode.RUN_USING_ENCODER, new PIDFCoefficients(kPB.getValueAsDouble(), 0, 0, kSB.getValueAsDouble()));
         boolean speedslow = gamepad1.right_bumper;
         double mag = speedslow ? 0.5 : 1.0;
@@ -141,10 +141,10 @@ public class Team6976TeleOp2027 extends OpMode {
 
         if (gamepad2.right_trigger_pressed){
             robot.frontShooter.setVelocity(speed[index] + addedPower);
-            robot.backShooter.setVelocity(-speed[index] + addedPower);
+//            robot.backShooter.setVelocity(-speed[index] + addedPower);
         }
         robot.frontShooter.setPower(0);
-        robot.backShooter.setPower(-0);
+//        robot.backShooter.setPower(-0);
 
 
         if (gamepad2.dpad_up) {
@@ -268,16 +268,16 @@ public class Team6976TeleOp2027 extends OpMode {
         telemetry.addData("Front Velocity",
                 "%.1f TPS", robot.frontShooter.getVelocity());
 
-        telemetry.addData("Back Velocity",
-                "%.1f TPS", robot.backShooter.getVelocity());
+//        telemetry.addData("Back Velocity",
+//                "%.1f TPS", robot.backShooter.getVelocity());
 
         telemetry.addData("Front Velocity Error",
                 "%.1f TPS",
                 targetSpeed - robot.frontShooter.getVelocity());
 
-        telemetry.addData("Back Velocity Error",
-                "%.1f TPS",
-                targetSpeed - robot.backShooter.getVelocity());
+//        telemetry.addData("Back Velocity Error",
+//                "%.1f TPS",
+//                targetSpeed - robot.backShooter.getVelocity());
 
         // ==========================================
         // TURRET STATUS

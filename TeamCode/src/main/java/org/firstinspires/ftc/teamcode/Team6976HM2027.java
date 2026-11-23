@@ -26,7 +26,7 @@ public class Team6976HM2027 {
 //    public Motor flywheelMotor2 = null;
 
     public DcMotorEx frontShooter = null;
-    public DcMotorEx backShooter = null;
+//    public DcMotorEx backShooter = null;
 
 
     public DcMotor DriveRightBack = null;
@@ -61,7 +61,7 @@ public class Team6976HM2027 {
         imu.initialize(parameters);
 
         frontShooter = hwMap.get(DcMotorEx.class, "FrontFlywheel");
-        backShooter = hwMap.get(DcMotorEx.class, "BackFlywheel");
+//        backShooter = hwMap.get(DcMotorEx.class, "BackFlywheel");
 
 //        flywheelMotor2 = new Motor("FrontFlywheel")
 //                .ofType(MotorType.GOBILDA_6000)
@@ -143,11 +143,11 @@ public class Team6976HM2027 {
         frontShooter.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
         frontShooter.setPIDFCoefficients(DcMotor.RunMode.RUN_USING_ENCODER, new PIDFCoefficients(20, 0, 0, 18));
 
-        backShooter.setDirection(DcMotorEx.Direction.REVERSE);
-        backShooter.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
-        backShooter.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
-        backShooter.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
-        backShooter.setPIDFCoefficients(DcMotor.RunMode.RUN_USING_ENCODER, new PIDFCoefficients(20, 0, 0, 18));
+//        backShooter.setDirection(DcMotorEx.Direction.REVERSE);
+//        backShooter.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
+//        backShooter.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+//        backShooter.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+//        backShooter.setPIDFCoefficients(DcMotor.RunMode.RUN_USING_ENCODER, new PIDFCoefficients(20, 0, 0, 18));
 
 
     }

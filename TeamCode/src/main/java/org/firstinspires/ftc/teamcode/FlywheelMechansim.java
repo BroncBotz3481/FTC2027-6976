@@ -29,7 +29,7 @@ public class FlywheelMechansim extends OpMode {
         robot.Map(hardwareMap);
         PIDFCoefficients pidfCoefficients = new PIDFCoefficients(P, 0, 0, F);
         robot.frontShooter.setPIDFCoefficients(DcMotorEx.RunMode.RUN_USING_ENCODER, pidfCoefficients);
-        robot.backShooter.setPIDFCoefficients(DcMotorEx.RunMode.RUN_USING_ENCODER, pidfCoefficients);
+//        robot.backShooter.setPIDFCoefficients(DcMotorEx.RunMode.RUN_USING_ENCODER, pidfCoefficients);
         telemetry.addLine("Init Complete");
     }
 
@@ -91,9 +91,9 @@ public class FlywheelMechansim extends OpMode {
         PIDFCoefficients pidfCoefficients = new PIDFCoefficients(P, 0, 0, F);
         PIDFCoefficients backpidfCoefficients = new PIDFCoefficients(P, 0, 0, F );
         robot.frontShooter.setPIDFCoefficients(DcMotorEx.RunMode.RUN_USING_ENCODER, pidfCoefficients);
-        robot.backShooter.setPIDFCoefficients(DcMotorEx.RunMode.RUN_USING_ENCODER, backpidfCoefficients);
+//        robot.backShooter.setPIDFCoefficients(DcMotorEx.RunMode.RUN_USING_ENCODER, backpidfCoefficients);
         robot.frontShooter.setVelocity(curTargetVelocity);
-        robot.backShooter.setVelocity(-curTargetVelocity);
+//        robot.backShooter.setVelocity(-curTargetVelocity);
 
         double curVelocity = robot.frontShooter.getVelocity();
         double error = curTargetVelocity - curVelocity;

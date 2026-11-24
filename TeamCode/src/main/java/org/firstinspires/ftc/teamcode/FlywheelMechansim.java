@@ -75,10 +75,15 @@ public class FlywheelMechansim extends OpMode {
             P += stepSizes[stepIndex];
         }
 
-        if (gamepad2.b){
-            robot.TransferMotor.setPower(-1 * isNeg);
+        if (gamepad1.x) {
+            robot.TransferMotor.setPower(-0.8 * isNeg);
         } else{
-            robot.TransferMotor.setPower(0 * isNeg);
+            robot.TransferMotor.setPower(0);
+        }
+        if (gamepad1.left_trigger_pressed){
+            robot.IntakeMotor.setPower(-1 * isNeg);
+        } if (gamepad1.leftBumperWasPressed()){
+            robot.IntakeMotor.setPower(0 * isNeg);
         }
 //        if (gamepad2.a){
 //            robot.TransferLeft.setPower(1 * isNeg);
@@ -89,7 +94,7 @@ public class FlywheelMechansim extends OpMode {
 //        }
 
         PIDFCoefficients pidfCoefficients = new PIDFCoefficients(P, 0, 0, F);
-        PIDFCoefficients backpidfCoefficients = new PIDFCoefficients(P, 0, 0, F );
+//        PIDFCoefficients backpidfCoefficients = new PIDFCoefficients(P, 0, 0, F );
         robot.frontShooter.setPIDFCoefficients(DcMotorEx.RunMode.RUN_USING_ENCODER, pidfCoefficients);
 //        robot.backShooter.setPIDFCoefficients(DcMotorEx.RunMode.RUN_USING_ENCODER, backpidfCoefficients);
         robot.frontShooter.setVelocity(curTargetVelocity);

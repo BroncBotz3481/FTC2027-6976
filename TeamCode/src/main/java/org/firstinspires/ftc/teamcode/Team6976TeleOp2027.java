@@ -121,9 +121,9 @@ public class Team6976TeleOp2027 extends OpMode {
 
 
         if (gamepad2.left_trigger_pressed){
-            robot.TransferMotor.setPower(-1 * isNeg);
+            robot.IntakeMotor.setPower(-1 * isNeg);
         } if (gamepad2.leftBumperWasPressed()){
-            robot.TransferMotor.setPower(0 * isNeg);
+            robot.IntakeMotor.setPower(0 * isNeg);
         }
 //        if (gamepad2.a){
 //            robot.TransferLeft.setPower(1 * isNeg);
@@ -134,9 +134,9 @@ public class Team6976TeleOp2027 extends OpMode {
 //        }
 
         if (gamepad2.a) {
-            robot.IntakeMotor.setPower(1 * isNeg);
+            robot.TransferMotor.setPower(-1 * isNeg);
         } else{
-            robot.IntakeMotor.setPower(0);
+            robot.TransferMotor.setPower(0);
         }
 
         if (gamepad2.right_trigger_pressed){

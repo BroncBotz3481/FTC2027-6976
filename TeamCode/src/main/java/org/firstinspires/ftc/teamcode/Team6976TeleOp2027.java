@@ -37,6 +37,8 @@ public class Team6976TeleOp2027 extends OpMode {
 
     boolean fieldCentric = false;
 
+    boolean flowerBarIsLowered = false;
+
 
     @Override
     public void init() {
@@ -80,6 +82,7 @@ public class Team6976TeleOp2027 extends OpMode {
 
         double turretPosition = 0.5;
         double currentTurretPositon = robot.TurretServo.getPosition();
+
 
         if (gamepad1.left_stick_button && gamepad1.right_stick_button) {
             fieldCentric = !fieldCentric;
@@ -165,13 +168,18 @@ public class Team6976TeleOp2027 extends OpMode {
             robot.TurretServo.setPosition(currentTurretPositon - 0.25);
         }
 
-        if (gamepad2.left_stick_y == 1) {
-            robot.FlowerBarServo.setPosition(1);
+        if (gamepad2.bWasPressed()) {
+            if (!flowerBarIsLowered) {
+                robot.FlowerBarServo.setPosition(1);
+                flowerBarIsLowered = true;
+            }
+            else {
+                robot.FlowerBarServo.setPosition(0);
+                flowerBarIsLowered = false;
+            }
         }
 
-        if (gamepad2.left_stick_y == -1) {
-            robot.FlowerBarServo.setPosition(0);
-        }
+
 
 //        if (gamepad2.left_stick_y == 1){
 //            robot.TurretServo.setPosition(0.7);

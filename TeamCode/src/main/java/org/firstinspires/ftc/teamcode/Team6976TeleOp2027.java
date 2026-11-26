@@ -165,6 +165,14 @@ public class Team6976TeleOp2027 extends OpMode {
             robot.TurretServo.setPosition(currentTurretPositon - 0.25);
         }
 
+        if (gamepad2.left_stick_y == 1) {
+            robot.FlowerBarServo.setPosition(1);
+        }
+
+        if (gamepad2.left_stick_y == -1) {
+            robot.FlowerBarServo.setPosition(0);
+        }
+
 //        if (gamepad2.left_stick_y == 1){
 //            robot.TurretServo.setPosition(0.7);
 //        }

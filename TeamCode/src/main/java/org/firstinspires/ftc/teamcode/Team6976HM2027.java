@@ -21,6 +21,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 public class Team6976HM2027 {
 
     public Servo TurretServo = null;
+    public Servo FlowerBarServo = null;
 //    public FlywheelMechanism shooter = null;
 //    public Motor flywheelMotor1 = null;
 //    public Motor flywheelMotor2 = null;
@@ -37,7 +38,7 @@ public class Team6976HM2027 {
     public DcMotor IntakeMotor = null;
     public DcMotor TransferMotor = null;
 
-    public Servo kicker = null;
+//    public Servo kicker = null;
 
     public double num = 0;
 
@@ -101,6 +102,7 @@ public class Team6976HM2027 {
 
 //        kicker = hwMap.get(Servo.class,"kicker");
         TurretServo = hwMap.get(Servo.class, "TurretServo");
+        FlowerBarServo = hwMap.get(Servo.class,"FlowerBarServo");
         //   Lights = hwMap.get(RevBlinkinLedDriver.class,"Lights");
 
         DriveLeftFront.setDirection(DcMotor.Direction.FORWARD);

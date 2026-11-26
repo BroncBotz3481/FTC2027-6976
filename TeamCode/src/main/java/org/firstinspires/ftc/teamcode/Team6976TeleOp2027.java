@@ -56,6 +56,8 @@ public class Team6976TeleOp2027 extends OpMode {
 //        robot.shooter.initConfig();
 
 
+
+
         robot.DriveRightFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         robot.DriveRightFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         robot.DriveLeftBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -65,7 +67,7 @@ public class Team6976TeleOp2027 extends OpMode {
         robot.DriveLeftFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         robot.DriveLeftFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
-        robot.TurretServo.setPosition(0.3);
+        robot.TurretServo.setPosition(0.5);
     }
 
     @Override
@@ -75,6 +77,9 @@ public class Team6976TeleOp2027 extends OpMode {
         robot.frontShooter.setPIDFCoefficients(DcMotor.RunMode.RUN_USING_ENCODER, new PIDFCoefficients(kPB.getValueAsDouble(), 0, 0, kSB.getValueAsDouble()));
         boolean speedslow = gamepad1.right_bumper;
         double mag = speedslow ? 0.5 : 1.0;
+
+        double turretPosition = 0.5;
+        double currentTurretPositon = robot.TurretServo.getPosition();
 
         if (gamepad1.left_stick_button && gamepad1.right_stick_button) {
             fieldCentric = !fieldCentric;
@@ -147,17 +152,17 @@ public class Team6976TeleOp2027 extends OpMode {
 //        robot.backShooter.setPower(-0);
 
 
-        if (gamepad2.dpad_up) {
-            robot.TurretServo.setPosition(turretPose.getValueAsDouble());
+        if (gamepad2.dpadUpWasPressed()) {
+            robot.TurretServo.setPosition(turretPosition);
         }
-        if (gamepad2.dpad_right) {
-            robot.TurretServo.setPosition(0);
+        if (gamepad2.dpadRightWasPressed()) {
+            robot.TurretServo.setPosition(currentTurretPositon + 0.25);
         }
-        if (gamepad2.dpad_down) {
-            robot.TurretServo.setPosition(0.35);
+        if (gamepad2.dpadDownWasPressed()) {
+            robot.TurretServo.setPosition(turretPosition);
         }
-        if (gamepad2.dpad_left) {
-            robot.TurretServo.setPosition(0.7);
+        if (gamepad2.dpadLeftWasPressed()) {
+            robot.TurretServo.setPosition(currentTurretPositon - 0.25);
         }
 
 //        if (gamepad2.left_stick_y == 1){
